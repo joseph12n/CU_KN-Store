@@ -1,0 +1,729 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Web Wireframe - Modificar usuarios</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initWireframeDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		KN-STORE	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Web Wireframe - Modificar usuarios		</span>
+<a onclick="javascript: showVpLink('KN-STORE.vpp://diagram/FggLTpmGAqACD13h', 'Modificar usuarios\nKN-STORE.vpp://diagram/FggLTpmGAqACD13h', 'Modificar usuarios', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="auto" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;">
+			<tr>
+				<td>
+<a href="javascript:showWireframeStatesDialog()"><span class="TableContent ItemLink">Show State Overview</span></a>				</td>
+				<td width="10px">
+				</td>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" id="selectShapeFggLTpmGAqACD13j">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagramFggLTpmGAqACD13j', this.value);hideLinkPopup();showSpotLight('diagramFggLTpmGAqACD13j', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#FggLTpmGAqACD13j;FggLTpmGAqACD13k|#FggLTpmGAqACD13j;FggLTpmGAqACD13k|FggLTpmGAqACD13k" id="optionFggLTpmGAqACD13k">Web Browser : Browser</option>
+<option value="shape|70.0|121.0|783.0|45.0|#FggLTpmGAqACD13j;ScKXTpmGAqACD34j|#FggLTpmGAqACD13j;ScKXTpmGAqACD34j|ScKXTpmGAqACD34j" id="optionScKXTpmGAqACD34j">Breadcrumb : Breadcrumb</option>
+<option value="shape|865.0|121.0|97.0|45.0|#FggLTpmGAqACD13j;mcKXTpmGAqACD341|#FggLTpmGAqACD13j;mcKXTpmGAqACD341|mcKXTpmGAqACD341" id="optionmcKXTpmGAqACD341">Button : Button</option>
+<option value="shape|768.0|121.0|97.0|45.0|#FggLTpmGAqACD13j;OcKXTpmGAqACD345|#FggLTpmGAqACD13j;OcKXTpmGAqACD345|OcKXTpmGAqACD345" id="optionOcKXTpmGAqACD345">Button : Button</option>
+<option value="shape|117.0|214.0|780.0|112.0|#FggLTpmGAqACD13j;hcKXTpmGAqACD35B|#FggLTpmGAqACD13j;hcKXTpmGAqACD35B|hcKXTpmGAqACD35B" id="optionhcKXTpmGAqACD35B">Panel : Panel</option>
+<option value="shape|146.0|229.0|613.0|30.0|#FggLTpmGAqACD13j;ecKXTpmGAqACD349|#FggLTpmGAqACD13j;ecKXTpmGAqACD349|ecKXTpmGAqACD349" id="optionecKXTpmGAqACD349">Buscar algun a alguien : Text Field</option>
+<option value="shape|417.0|273.0|100.0|30.0|#FggLTpmGAqACD13j;JcKXTpmGAqACD35V|#FggLTpmGAqACD13j;JcKXTpmGAqACD35V|JcKXTpmGAqACD35V" id="optionJcKXTpmGAqACD35V">Correo Elect : Text Field</option>
+<option value="shape|538.0|273.0|100.0|30.0|#FggLTpmGAqACD13j;JcKXTpmGAqACD35S|#FggLTpmGAqACD13j;JcKXTpmGAqACD35S|JcKXTpmGAqACD35S" id="optionJcKXTpmGAqACD35S">Rol : Text Field</option>
+<option value="shape|659.0|273.0|100.0|30.0|#FggLTpmGAqACD13j;JcKXTpmGAqACD35P|#FggLTpmGAqACD13j;JcKXTpmGAqACD35P|JcKXTpmGAqACD35P" id="optionJcKXTpmGAqACD35P">Estado : Text Field</option>
+<option value="shape|146.0|273.0|100.0|30.0|#FggLTpmGAqACD13j;JcKXTpmGAqACD35M|#FggLTpmGAqACD13j;JcKXTpmGAqACD35M|JcKXTpmGAqACD35M" id="optionJcKXTpmGAqACD35M">Ver pedidos : Text Field</option>
+<option value="shape|267.0|273.0|129.0|30.0|#FggLTpmGAqACD13j;JcKXTpmGAqACD35J|#FggLTpmGAqACD13j;JcKXTpmGAqACD35J|JcKXTpmGAqACD35J" id="optionJcKXTpmGAqACD35J">Nombre completo : Text Field</option>
+<option value="shape|774.0|273.0|91.0|30.0|#FggLTpmGAqACD13j;JcKXTpmGAqACD35G|#FggLTpmGAqACD13j;JcKXTpmGAqACD35G|JcKXTpmGAqACD35G" id="optionJcKXTpmGAqACD35G">Acciones : Text Field</option>
+<option value="shape|774.0|229.0|99.0|30.0|#FggLTpmGAqACD13j;xcKXTpmGAqACD35D|#FggLTpmGAqACD13j;xcKXTpmGAqACD35D|xcKXTpmGAqACD35D" id="optionxcKXTpmGAqACD35D">Modificar User : Button</option>
+<option value="shape|117.0|408.0|780.0|65.0|#FggLTpmGAqACD13j;PcKXTpmGAqACD35p|#FggLTpmGAqACD13j;PcKXTpmGAqACD35p|PcKXTpmGAqACD35p" id="optionPcKXTpmGAqACD35p">Panel : Panel</option>
+<option value="shape|836.0|424.0|61.0|30.0|#FggLTpmGAqACD13j;3cKXTpmGAqACD35l|#FggLTpmGAqACD13j;3cKXTpmGAqACD35l|3cKXTpmGAqACD35l" id="option3cKXTpmGAqACD35l">Elim : Text Field</option>
+<option value="shape|759.0|424.0|68.0|30.0|#FggLTpmGAqACD13j;vcKXTpmGAqACD359|#FggLTpmGAqACD13j;vcKXTpmGAqACD359|vcKXTpmGAqACD359" id="optionvcKXTpmGAqACD359">EDITAR : Text Field</option>
+<option value="shape|684.0|424.0|55.0|30.0|#FggLTpmGAqACD13j;vcKXTpmGAqACD356|#FggLTpmGAqACD13j;vcKXTpmGAqACD356|vcKXTpmGAqACD356" id="optionvcKXTpmGAqACD356">CREAR : Text Field</option>
+<option value="shape|601.0|425.0|63.0|30.0|#FggLTpmGAqACD13j;vcKXTpmGAqACD353|#FggLTpmGAqACD13j;vcKXTpmGAqACD353|vcKXTpmGAqACD353" id="optionvcKXTpmGAqACD353">Estado : Text Field</option>
+<option value="shape|538.0|424.0|43.0|30.0|#FggLTpmGAqACD13j;vcKXTpmGAqACD350|#FggLTpmGAqACD13j;vcKXTpmGAqACD350|vcKXTpmGAqACD350" id="optionvcKXTpmGAqACD350">Rol : Text Field</option>
+<option value="shape|417.0|424.0|101.0|30.0|#FggLTpmGAqACD13j;vcKXTpmGAqACD35x|#FggLTpmGAqACD13j;vcKXTpmGAqACD35x|vcKXTpmGAqACD35x" id="optionvcKXTpmGAqACD35x">Fecha de Nac : Text Field</option>
+<option value="shape|296.0|424.0|100.0|30.0|#FggLTpmGAqACD13j;vcKXTpmGAqACD35u|#FggLTpmGAqACD13j;vcKXTpmGAqACD35u|vcKXTpmGAqACD35u" id="optionvcKXTpmGAqACD35u">Correo Elect : Text Field</option>
+<option value="shape|146.0|424.0|129.0|30.0|#FggLTpmGAqACD13j;PcKXTpmGAqACD35r|#FggLTpmGAqACD13j;PcKXTpmGAqACD35r|PcKXTpmGAqACD35r" id="optionPcKXTpmGAqACD35r">Nombre completo : Text Field</option>
+<option value="shape|129.0|537.0|757.0|170.0|#FggLTpmGAqACD13j;m8KXTpmGAqACD36R|#FggLTpmGAqACD13j;m8KXTpmGAqACD36R|m8KXTpmGAqACD36R" id="optionm8KXTpmGAqACD36R">Panel : Panel</option>
+<option value="shape|457.0|662.0|100.0|30.0|#FggLTpmGAqACD13j;a8KXTpmGAqACD36N|#FggLTpmGAqACD13j;a8KXTpmGAqACD36N|a8KXTpmGAqACD36N" id="optiona8KXTpmGAqACD36N">ACEPTAR : Button</option>
+<option value="shape|162.0|578.0|691.0|70.0|#FggLTpmGAqACD13j;m8KXTpmGAqACD36T|#FggLTpmGAqACD13j;m8KXTpmGAqACD36T|m8KXTpmGAqACD36T" id="optionm8KXTpmGAqACD36T">¡USUARIO CREADO CON EXITO! : Text Field</option>
+<option value="shape|403.0|141.0|790.0|41.0|#FggLTpmGAqACD13j;acKXTpmGAqACD34x|#FggLTpmGAqACD13j;acKXTpmGAqACD34x|acKXTpmGAqACD34x" id="optionacKXTpmGAqACD34x">1.Para buscar clientes : Annotation</option>
+<option value="shape|865.0|241.0|466.0|116.0|#FggLTpmGAqACD13j;HcKXTpmGAqACD35h|#FggLTpmGAqACD13j;HcKXTpmGAqACD35h|HcKXTpmGAqACD35h" id="optionHcKXTpmGAqACD35h">2.Al precionar el boton
+"Modificar user", se va a desplegar
+la siguiente opcion 
+ : Annotation</option>
+<option value="shape|774.0|454.0|649.0|91.0|#FggLTpmGAqACD13j;y8KXTpmGAqACD36J|#FggLTpmGAqACD13j;y8KXTpmGAqACD36J|y8KXTpmGAqACD36J" id="optiony8KXTpmGAqACD36J">4. Para finalizar la modificacion se debe dar
+en el boton "modificar usuario", luego de eso va a salir
+una pequeña alerta
+
+ : Annotation</option>
+<option value="shape|862.0|602.0|550.0|41.0|#FggLTpmGAqACD13j;B8KXTpmGAqACD36Z|#FggLTpmGAqACD13j;B8KXTpmGAqACD36Z|B8KXTpmGAqACD36Z" id="optionB8KXTpmGAqACD36Z">5. ALERTA DE USUARIO MODIFICADO CON EXITO : Annotation</option>
+<option value="shape|539.0|357.0|758.0|52.0|#FggLTpmGAqACD13j;x8KXTpmGAqACD36d|#FggLTpmGAqACD13j;x8KXTpmGAqACD36d|x8KXTpmGAqACD36d" id="optionx8KXTpmGAqACD36d">3. Opcion de modificar Nuevo usuario
+ : Annotation</option>
+</select>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<span data-value="FggLTpmGAqACD13j" style="display: none;" id="defaultState">
+		</span>
+		<span data-value="Web Wireframe - Modificar usuarios - Modificar usuarios" style="display: none;" id="defaultPageTitleText">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagramFggLTpmGAqACD13j" src="../images/Modificar_usuarios_Modificar_usuarios.png" usemap="#diagramFggLTpmGAqACD13j_map" class="Image" width="1427" height="774"/>
+					<map name="diagramFggLTpmGAqACD13j_map">
+<area imageId="diagramFggLTpmGAqACD13j" coords="539, 357, 1297, 409" coords2="539, 357, 1297, 409" shape="rect" alt="3. Opcion de modificar Nuevo usuario
+:Annotation" id="areadiagramFggLTpmGAqACD13j_map_x8KXTpmGAqACD36d" href="#FggLTpmGAqACD13j;x8KXTpmGAqACD36d" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="862, 602, 1412, 643" coords2="862, 602, 1412, 643" shape="rect" alt="5. ALERTA DE USUARIO MODIFICADO CON EXITO:Annotation" id="areadiagramFggLTpmGAqACD13j_map_B8KXTpmGAqACD36Z" href="#FggLTpmGAqACD13j;B8KXTpmGAqACD36Z" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="774, 454, 1423, 545" coords2="774, 454, 1423, 545" shape="rect" alt="4. Para finalizar la modificacion se debe dar
+en el boton "modificar usuario", luego de eso va a salir
+una pequeña alerta
+
+:Annotation" id="areadiagramFggLTpmGAqACD13j_map_y8KXTpmGAqACD36J" href="#FggLTpmGAqACD13j;y8KXTpmGAqACD36J" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="865, 241, 1331, 357" coords2="865, 241, 1331, 357" shape="rect" alt="2.Al precionar el boton
+"Modificar user", se va a desplegar
+la siguiente opcion 
+:Annotation" id="areadiagramFggLTpmGAqACD13j_map_HcKXTpmGAqACD35h" href="#FggLTpmGAqACD13j;HcKXTpmGAqACD35h" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="403, 141, 1193, 182" coords2="403, 141, 1193, 182" shape="rect" alt="1.Para buscar clientes:Annotation" id="areadiagramFggLTpmGAqACD13j_map_acKXTpmGAqACD34x" href="#FggLTpmGAqACD13j;acKXTpmGAqACD34x" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="162, 578, 853, 648" coords2="162, 578, 853, 648" shape="rect" alt="¡USUARIO CREADO CON EXITO!:Text Field" id="areadiagramFggLTpmGAqACD13j_map_m8KXTpmGAqACD36T" href="#FggLTpmGAqACD13j;m8KXTpmGAqACD36T" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="457, 662, 557, 692" coords2="457, 662, 557, 692" shape="rect" alt="ACEPTAR:Button" id="areadiagramFggLTpmGAqACD13j_map_a8KXTpmGAqACD36N" href="#FggLTpmGAqACD13j;a8KXTpmGAqACD36N" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="129, 537, 886, 707" coords2="129, 537, 886, 707" shape="rect" alt="Panel:Panel" id="areadiagramFggLTpmGAqACD13j_map_m8KXTpmGAqACD36R" href="#FggLTpmGAqACD13j;m8KXTpmGAqACD36R" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="146, 424, 275, 454" coords2="146, 424, 275, 454" shape="rect" alt="Nombre completo:Text Field" id="areadiagramFggLTpmGAqACD13j_map_PcKXTpmGAqACD35r" href="#FggLTpmGAqACD13j;PcKXTpmGAqACD35r" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="296, 424, 396, 454" coords2="296, 424, 396, 454" shape="rect" alt="Correo Elect:Text Field" id="areadiagramFggLTpmGAqACD13j_map_vcKXTpmGAqACD35u" href="#FggLTpmGAqACD13j;vcKXTpmGAqACD35u" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="417, 424, 518, 454" coords2="417, 424, 518, 454" shape="rect" alt="Fecha de Nac:Text Field" id="areadiagramFggLTpmGAqACD13j_map_vcKXTpmGAqACD35x" href="#FggLTpmGAqACD13j;vcKXTpmGAqACD35x" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="538, 424, 581, 454" coords2="538, 424, 581, 454" shape="rect" alt="Rol:Text Field" id="areadiagramFggLTpmGAqACD13j_map_vcKXTpmGAqACD350" href="#FggLTpmGAqACD13j;vcKXTpmGAqACD350" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="601, 425, 664, 455" coords2="601, 425, 664, 455" shape="rect" alt="Estado:Text Field" id="areadiagramFggLTpmGAqACD13j_map_vcKXTpmGAqACD353" href="#FggLTpmGAqACD13j;vcKXTpmGAqACD353" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="684, 424, 739, 454" coords2="684, 424, 739, 454" shape="rect" alt="CREAR:Text Field" id="areadiagramFggLTpmGAqACD13j_map_vcKXTpmGAqACD356" href="#FggLTpmGAqACD13j;vcKXTpmGAqACD356" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="759, 424, 827, 454" coords2="759, 424, 827, 454" shape="rect" alt="EDITAR:Text Field" id="areadiagramFggLTpmGAqACD13j_map_vcKXTpmGAqACD359" href="#FggLTpmGAqACD13j;vcKXTpmGAqACD359" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="836, 424, 897, 454" coords2="836, 424, 897, 454" shape="rect" alt="Elim:Text Field" id="areadiagramFggLTpmGAqACD13j_map_3cKXTpmGAqACD35l" href="#FggLTpmGAqACD13j;3cKXTpmGAqACD35l" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="117, 408, 897, 473" coords2="117, 408, 897, 473" shape="rect" alt="Panel:Panel" id="areadiagramFggLTpmGAqACD13j_map_PcKXTpmGAqACD35p" href="#FggLTpmGAqACD13j;PcKXTpmGAqACD35p" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="774, 229, 873, 259" coords2="774, 229, 873, 259" shape="rect" alt="Modificar User:Button" id="areadiagramFggLTpmGAqACD13j_map_xcKXTpmGAqACD35D" href="#FggLTpmGAqACD13j;xcKXTpmGAqACD35D" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="774, 273, 865, 303" coords2="774, 273, 865, 303" shape="rect" alt="Acciones:Text Field" id="areadiagramFggLTpmGAqACD13j_map_JcKXTpmGAqACD35G" href="#FggLTpmGAqACD13j;JcKXTpmGAqACD35G" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="267, 273, 396, 303" coords2="267, 273, 396, 303" shape="rect" alt="Nombre completo:Text Field" id="areadiagramFggLTpmGAqACD13j_map_JcKXTpmGAqACD35J" href="#FggLTpmGAqACD13j;JcKXTpmGAqACD35J" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="146, 273, 246, 303" coords2="146, 273, 246, 303" shape="rect" alt="Ver pedidos:Text Field" id="areadiagramFggLTpmGAqACD13j_map_JcKXTpmGAqACD35M" href="#FggLTpmGAqACD13j;JcKXTpmGAqACD35M" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="659, 273, 759, 303" coords2="659, 273, 759, 303" shape="rect" alt="Estado:Text Field" id="areadiagramFggLTpmGAqACD13j_map_JcKXTpmGAqACD35P" href="#FggLTpmGAqACD13j;JcKXTpmGAqACD35P" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="538, 273, 638, 303" coords2="538, 273, 638, 303" shape="rect" alt="Rol:Text Field" id="areadiagramFggLTpmGAqACD13j_map_JcKXTpmGAqACD35S" href="#FggLTpmGAqACD13j;JcKXTpmGAqACD35S" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="417, 273, 517, 303" coords2="417, 273, 517, 303" shape="rect" alt="Correo Elect:Text Field" id="areadiagramFggLTpmGAqACD13j_map_JcKXTpmGAqACD35V" href="#FggLTpmGAqACD13j;JcKXTpmGAqACD35V" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="146, 229, 759, 259" coords2="146, 229, 759, 259" shape="rect" alt="Buscar algun a alguien:Text Field" id="areadiagramFggLTpmGAqACD13j_map_ecKXTpmGAqACD349" href="#FggLTpmGAqACD13j;ecKXTpmGAqACD349" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="117, 214, 897, 326" coords2="117, 214, 897, 326" shape="rect" alt="Panel:Panel" id="areadiagramFggLTpmGAqACD13j_map_hcKXTpmGAqACD35B" href="#FggLTpmGAqACD13j;hcKXTpmGAqACD35B" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="768, 121, 865, 166" coords2="768, 121, 865, 166" shape="rect" alt="Button:Button" id="areadiagramFggLTpmGAqACD13j_map_OcKXTpmGAqACD345" href="#FggLTpmGAqACD13j;OcKXTpmGAqACD345" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="865, 121, 962, 166" coords2="865, 121, 962, 166" shape="rect" alt="Button:Button" id="areadiagramFggLTpmGAqACD13j_map_mcKXTpmGAqACD341" href="#FggLTpmGAqACD13j;mcKXTpmGAqACD341" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="70, 121, 853, 166" coords2="70, 121, 853, 166" shape="rect" alt="Breadcrumb:Breadcrumb" id="areadiagramFggLTpmGAqACD13j_map_ScKXTpmGAqACD34j" href="#FggLTpmGAqACD13j;ScKXTpmGAqACD34j" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFggLTpmGAqACD13j" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagramFggLTpmGAqACD13j_map_FggLTpmGAqACD13k" href="#FggLTpmGAqACD13j;FggLTpmGAqACD13k" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+	</p>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0" id="elementsFggLTpmGAqACD13j">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Display Text</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Browser.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Browser.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Web Browser : Browser</span>				</span>
+<a name="FggLTpmGAqACD13j;FggLTpmGAqACD13k"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Breadcrumb.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Breadcrumb.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Breadcrumb : Breadcrumb</span>				</span>
+<a name="FggLTpmGAqACD13j;ScKXTpmGAqACD34j"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Button : Button</span>				</span>
+<a name="FggLTpmGAqACD13j;mcKXTpmGAqACD341"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Button : Button</span>				</span>
+<a name="FggLTpmGAqACD13j;OcKXTpmGAqACD345"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Panel.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Panel.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Panel : Panel</span>				</span>
+<a name="FggLTpmGAqACD13j;hcKXTpmGAqACD35B"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Buscar algun a alguien : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;ecKXTpmGAqACD349"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Correo Elect : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;JcKXTpmGAqACD35V"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Rol : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;JcKXTpmGAqACD35S"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Estado : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;JcKXTpmGAqACD35P"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Ver pedidos : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;JcKXTpmGAqACD35M"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Nombre completo : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;JcKXTpmGAqACD35J"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Acciones : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;JcKXTpmGAqACD35G"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Modificar User : Button</span>				</span>
+<a name="FggLTpmGAqACD13j;xcKXTpmGAqACD35D"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Panel.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Panel.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Panel : Panel</span>				</span>
+<a name="FggLTpmGAqACD13j;PcKXTpmGAqACD35p"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Elim : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;3cKXTpmGAqACD35l"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">EDITAR : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;vcKXTpmGAqACD359"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">CREAR : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;vcKXTpmGAqACD356"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Estado : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;vcKXTpmGAqACD353"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Rol : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;vcKXTpmGAqACD350"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Fecha de Nac : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;vcKXTpmGAqACD35x"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Correo Elect : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;vcKXTpmGAqACD35u"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Nombre completo : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;PcKXTpmGAqACD35r"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Panel.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Panel.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Panel : Panel</span>				</span>
+<a name="FggLTpmGAqACD13j;m8KXTpmGAqACD36R"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">ACEPTAR : Button</span>				</span>
+<a name="FggLTpmGAqACD13j;a8KXTpmGAqACD36N"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">¡USUARIO CREADO CON EXITO! : Text Field</span>				</span>
+<a name="FggLTpmGAqACD13j;m8KXTpmGAqACD36T"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Annotation.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Annotation.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">1.Para buscar clientes : Annotation</span>				</span>
+<a name="FggLTpmGAqACD13j;acKXTpmGAqACD34x"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Annotation.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Annotation.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">2.Al precionar el boton<br>"Modificar user", se va a desplegar<br>la siguiente opcion <br> : Annotation</span>				</span>
+<a name="FggLTpmGAqACD13j;HcKXTpmGAqACD35h"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Annotation.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Annotation.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">4. Para finalizar la modificacion se debe dar<br>en el boton "modificar usuario", luego de eso va a salir<br>una pequeña alerta<br><br> : Annotation</span>				</span>
+<a name="FggLTpmGAqACD13j;y8KXTpmGAqACD36J"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Annotation.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Annotation.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">5. ALERTA DE USUARIO MODIFICADO CON EXITO : Annotation</span>				</span>
+<a name="FggLTpmGAqACD13j;B8KXTpmGAqACD36Z"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Annotation.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Annotation.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">3. Opcion de modificar Nuevo usuario<br> : Annotation</span>				</span>
+<a name="FggLTpmGAqACD13j;x8KXTpmGAqACD36d"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="width:370px; height:255px; position: fixed; _position: absolute; overflow: scroll; background-color: #F0F0F0; top: 100px; left: 100px; padding: 10px; display: none;" id="wireframeStatesDialog">
+		<span data-value="Web Wireframe - Modificar usuarios - Modificar usuarios" style="display: none;" id="pageTitleTextFggLTpmGAqACD13j">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 30; top: 30; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeFggLTpmGAqACD13j', 'diagramFggLTpmGAqACD13j', 'none', 'elementsFggLTpmGAqACD13j', 'PageTitleText', 'pageTitleTextFggLTpmGAqACD13j')"><img src="../images/Modificar_usuarios_Modificar_usuarios_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeFggLTpmGAqACD13j', 'diagramFggLTpmGAqACD13j', 'none', 'elementsFggLTpmGAqACD13j', 'PageTitleText', 'pageTitleTextFggLTpmGAqACD13j')"><span style="color: black !important" class="TableContent ItemLink">Modificar usuarios</span></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		KN-STORE	</div>
+</body>
+</html>
