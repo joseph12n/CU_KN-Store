@@ -1,0 +1,375 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Web Wireframe - Menu principal</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initWireframeDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		KN-STORE	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Web Wireframe - Menu principal		</span>
+<a onclick="javascript: showVpLink('KN-STORE.vpp://diagram/YegqjZmGAqAKaVg4', 'Menu principal\nKN-STORE.vpp://diagram/YegqjZmGAqAKaVg4', 'Menu principal', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="auto" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;">
+			<tr>
+				<td>
+<a href="javascript:showWireframeStatesDialog()"><span class="TableContent ItemLink">Show State Overview</span></a>				</td>
+				<td width="10px">
+				</td>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" id="selectShapeUegqjZmGAqAKaVg6">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagramUegqjZmGAqAKaVg6', this.value);hideLinkPopup();showSpotLight('diagramUegqjZmGAqAKaVg6', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#UegqjZmGAqAKaVg6;7egqjZmGAqAKaVg7|#UegqjZmGAqAKaVg6;7egqjZmGAqAKaVg7|7egqjZmGAqAKaVg7" id="option7egqjZmGAqAKaVg7">Web Browser : Browser</option>
+<option value="shape|337.0|170.0|410.0|65.0|#UegqjZmGAqAKaVg6;7VwqjZmGAqAKaVhu|#UegqjZmGAqAKaVg6;7VwqjZmGAqAKaVhu|7VwqjZmGAqAKaVhu" id="option7VwqjZmGAqAKaVhu">Gestionar envios : Text Field</option>
+<option value="shape|465.0|80.0|150.0|51.0|#UegqjZmGAqAKaVg6;M1wqjZmGAqAKaVhy|#UegqjZmGAqAKaVg6;M1wqjZmGAqAKaVhy|M1wqjZmGAqAKaVhy" id="optionM1wqjZmGAqAKaVhy">kn-store  : Text Field</option>
+<option value="shape|6.0|278.0|502.0|472.0|#UegqjZmGAqAKaVg6;11iqjZmGAqAKaViZ|#UegqjZmGAqAKaVg6;11iqjZmGAqAKaViZ|11iqjZmGAqAKaViZ" id="option11iqjZmGAqAKaViZ">Panel : Panel</option>
+<option value="shape|20.0|316.0|206.0|70.0|#UegqjZmGAqAKaVg6;9TyqjZmGAqAKaVil|#UegqjZmGAqAKaVg6;9TyqjZmGAqAKaVil|9TyqjZmGAqAKaVil" id="option9TyqjZmGAqAKaVil">Badge : Badge</option>
+<option value="shape|19.0|526.0|206.0|70.0|#UegqjZmGAqAKaVg6;W96qjZmGAqAKaVix|#UegqjZmGAqAKaVg6;W96qjZmGAqAKaVix|W96qjZmGAqAKaVix" id="optionW96qjZmGAqAKaVix">Badge : Badge</option>
+<option value="shape|20.0|644.0|206.0|70.0|#UegqjZmGAqAKaVg6;FS2qjZmGAqAKaVjB|#UegqjZmGAqAKaVg6;FS2qjZmGAqAKaVjB|FS2qjZmGAqAKaVjB" id="optionFS2qjZmGAqAKaVjB">Badge : Badge</option>
+<option value="shape|19.0|421.0|206.0|70.0|#UegqjZmGAqAKaVg6;y7KujZmGAqAKaV04|#UegqjZmGAqAKaVg6;y7KujZmGAqAKaV04|y7KujZmGAqAKaV04" id="optiony7KujZmGAqAKaV04">Badge : Badge</option>
+</select>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<span data-value="UegqjZmGAqAKaVg6" style="display: none;" id="defaultState">
+		</span>
+		<span data-value="Web Wireframe - Menu principal - ADMINISTRADORPROVEEDOR selecciona una opci&#xf3;n del menu " style="display: none;" id="defaultPageTitleText">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagramUegqjZmGAqAKaVg6" src="../images/Menu_principal_ADMINISTRADORPROVEEDOR_selecciona_una_opcin_del_menu_.png" usemap="#diagramUegqjZmGAqAKaVg6_map" class="Image" width="1030" height="774"/>
+					<map name="diagramUegqjZmGAqAKaVg6_map">
+<area imageId="diagramUegqjZmGAqAKaVg6" coords="19, 421, 225, 491" coords2="19, 421, 225, 491" shape="rect" alt="Badge:Badge" id="areadiagramUegqjZmGAqAKaVg6_map_y7KujZmGAqAKaV04" href="#UegqjZmGAqAKaVg6;y7KujZmGAqAKaV04" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramUegqjZmGAqAKaVg6" coords="20, 644, 226, 714" coords2="20, 644, 226, 714" shape="rect" alt="Badge:Badge" id="areadiagramUegqjZmGAqAKaVg6_map_FS2qjZmGAqAKaVjB" href="#UegqjZmGAqAKaVg6;FS2qjZmGAqAKaVjB" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramUegqjZmGAqAKaVg6" coords="19, 526, 225, 596" coords2="19, 526, 225, 596" shape="rect" alt="Badge:Badge" id="areadiagramUegqjZmGAqAKaVg6_map_W96qjZmGAqAKaVix" href="#UegqjZmGAqAKaVg6;W96qjZmGAqAKaVix" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramUegqjZmGAqAKaVg6" coords="20, 316, 226, 386" coords2="20, 316, 226, 386" shape="rect" alt="Badge:Badge" id="areadiagramUegqjZmGAqAKaVg6_map_9TyqjZmGAqAKaVil" href="#UegqjZmGAqAKaVg6;9TyqjZmGAqAKaVil" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramUegqjZmGAqAKaVg6" coords="6, 278, 508, 750" coords2="6, 278, 508, 750" shape="rect" alt="Panel:Panel" id="areadiagramUegqjZmGAqAKaVg6_map_11iqjZmGAqAKaViZ" href="#UegqjZmGAqAKaVg6;11iqjZmGAqAKaViZ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramUegqjZmGAqAKaVg6" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;margin-right:0;color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p align=&amp;quot;center&amp;quot; style=&amp;quot;margin-right:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-top:0pt;text-align:center;&amp;quot;&amp;gt;
+      &amp;lt;font size=&amp;quot;16px&amp;quot; style=&amp;quot;font-size:16px;&amp;quot;&amp;gt;&amp;lt;b&amp;gt;KN-STORE&amp;lt;/b&amp;gt;&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="465, 80, 615, 131" coords2="465, 80, 615, 131" shape="rect" alt="kn-store :Text Field" id="areadiagramUegqjZmGAqAKaVg6_map_M1wqjZmGAqAKaVhy" href="#UegqjZmGAqAKaVg6;M1wqjZmGAqAKaVhy" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagramUegqjZmGAqAKaVg6" coords="337, 170, 747, 235" coords2="337, 170, 747, 235" shape="rect" alt="Gestionar envios:Text Field" id="areadiagramUegqjZmGAqAKaVg6_map_7VwqjZmGAqAKaVhu" href="#UegqjZmGAqAKaVg6;7VwqjZmGAqAKaVhu" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramUegqjZmGAqAKaVg6" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagramUegqjZmGAqAKaVg6_map_7egqjZmGAqAKaVg7" href="#UegqjZmGAqAKaVg6;7egqjZmGAqAKaVg7" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+	</p>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0" id="elementsUegqjZmGAqAKaVg6">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Display Text</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Browser.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Browser.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Web Browser : Browser</span>				</span>
+<a name="UegqjZmGAqAKaVg6;7egqjZmGAqAKaVg7"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Gestionar envios : Text Field</span>				</span>
+<a name="UegqjZmGAqAKaVg6;7VwqjZmGAqAKaVhu"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">kn-store  : Text Field</span>				</span>
+<a name="UegqjZmGAqAKaVg6;M1wqjZmGAqAKaVhy"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="margin-right:0;color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;">
+    <p align="center" style="margin-right:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-top:0pt;text-align:center;">
+      <font size="16px" style="font-size:16px;"><b>KN-STORE</b></font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Panel.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Panel.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Panel : Panel</span>				</span>
+<a name="UegqjZmGAqAKaVg6;11iqjZmGAqAKaViZ"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Badge.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Badge.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Badge : Badge</span>				</span>
+<a name="UegqjZmGAqAKaVg6;9TyqjZmGAqAKaVil"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Badge.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Badge.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Badge : Badge</span>				</span>
+<a name="UegqjZmGAqAKaVg6;W96qjZmGAqAKaVix"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Badge.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Badge.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Badge : Badge</span>				</span>
+<a name="UegqjZmGAqAKaVg6;FS2qjZmGAqAKaVjB"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Badge.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Badge.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Badge : Badge</span>				</span>
+<a name="UegqjZmGAqAKaVg6;y7KujZmGAqAKaV04"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="width:370px; height:255px; position: fixed; _position: absolute; overflow: scroll; background-color: #F0F0F0; top: 100px; left: 100px; padding: 10px; display: none;" id="wireframeStatesDialog">
+		<span data-value="Web Wireframe - Menu principal - ADMINISTRADORPROVEEDOR selecciona una opci&#xf3;n del menu " style="display: none;" id="pageTitleTextUegqjZmGAqAKaVg6">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 30; top: 30; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeUegqjZmGAqAKaVg6', 'diagramUegqjZmGAqAKaVg6', 'none', 'elementsUegqjZmGAqAKaVg6', 'PageTitleText', 'pageTitleTextUegqjZmGAqAKaVg6')"><img src="../images/Menu_principal_ADMINISTRADORPROVEEDOR_selecciona_una_opcin_del_menu_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeUegqjZmGAqAKaVg6', 'diagramUegqjZmGAqAKaVg6', 'none', 'elementsUegqjZmGAqAKaVg6', 'PageTitleText', 'pageTitleTextUegqjZmGAqAKaVg6')"><span style="color: black !important" class="TableContent ItemLink">ADMINISTRADORPROVEEDOR selecciona una opción del menu </span></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		KN-STORE	</div>
+</body>
+</html>

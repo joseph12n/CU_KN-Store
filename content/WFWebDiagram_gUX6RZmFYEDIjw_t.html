@@ -1,0 +1,511 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Web Wireframe - recuperar contraseña</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initWireframeDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		KN-STORE	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Web Wireframe - recuperar contraseña		</span>
+<a onclick="javascript: showVpLink('KN-STORE.vpp://diagram/gUX6RZmFYEDIjw.t', 'recuperar contrase&#xf1;a\nKN-STORE.vpp://diagram/gUX6RZmFYEDIjw.t', 'recuperar contrase&#xf1;a', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="auto" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;">
+			<tr>
+				<td>
+<a href="javascript:showWireframeStatesDialog()"><span class="TableContent ItemLink">Show State Overview</span></a>				</td>
+				<td width="10px">
+				</td>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" id="selectShapeIUX6RZmFYEDIjw.v">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagramIUX6RZmFYEDIjw.v', this.value);hideLinkPopup();showSpotLight('diagramIUX6RZmFYEDIjw.v', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#IUX6RZmFYEDIjw.v;2UX6RZmFYEDIjw.w|#IUX6RZmFYEDIjw.v;2UX6RZmFYEDIjw.w|2UX6RZmFYEDIjw.w" id="option2UX6RZmFYEDIjw.w">Web Browser : Browser</option>
+<option value="shape|330.0|245.0|360.0|363.0|#IUX6RZmFYEDIjw.v;pp36RZmFYEDIjw_R|#IUX6RZmFYEDIjw.v;pp36RZmFYEDIjw_R|pp36RZmFYEDIjw_R" id="optionpp36RZmFYEDIjw_R">Panel : Panel</option>
+<option value="shape|476.0|310.0|65.0|60.0|#IUX6RZmFYEDIjw.v;Sp36RZmFYEDIjw_N|#IUX6RZmFYEDIjw.v;Sp36RZmFYEDIjw_N|Sp36RZmFYEDIjw_N" id="optionSp36RZmFYEDIjw_N">Image : Image</option>
+<option value="shape|460.0|263.0|100.0|30.0|#IUX6RZmFYEDIjw.v;Zp36RZmFYEDIjw_T|#IUX6RZmFYEDIjw.v;Zp36RZmFYEDIjw_T|Zp36RZmFYEDIjw_T" id="optionZp36RZmFYEDIjw_T">Iniciar sesion : Text Field</option>
+<option value="shape|442.0|387.0|135.0|30.0|#IUX6RZmFYEDIjw.v;Fp36RZmFYEDIjw_W|#IUX6RZmFYEDIjw.v;Fp36RZmFYEDIjw_W|Fp36RZmFYEDIjw_W" id="optionFp36RZmFYEDIjw_W">Pedro Elias : Text Field</option>
+<option value="shape|442.0|437.0|135.0|30.0|#IUX6RZmFYEDIjw.v;lp36RZmFYEDIjw_Z|#IUX6RZmFYEDIjw.v;lp36RZmFYEDIjw_Z|lp36RZmFYEDIjw_Z" id="optionlp36RZmFYEDIjw_Z">123456 : Text Field</option>
+<option value="shape|459.0|520.0|100.0|30.0|#IUX6RZmFYEDIjw.v;Vp36RZmFYEDIjw_c|#IUX6RZmFYEDIjw.v;Vp36RZmFYEDIjw_c|Vp36RZmFYEDIjw_c" id="optionVp36RZmFYEDIjw_c">Iniciar sesion : Button</option>
+<option value="shape|459.0|557.0|100.0|30.0|#IUX6RZmFYEDIjw.v;1p36RZmFYEDIjw_f|#IUX6RZmFYEDIjw.v;1p36RZmFYEDIjw_f|1p36RZmFYEDIjw_f" id="option1p36RZmFYEDIjw_f">Cancelar : Button</option>
+<option value="shape|464.0|467.0|100.0|17.0|#IUX6RZmFYEDIjw.v;tp36RZmFYEDIjw_i|#IUX6RZmFYEDIjw.v;tp36RZmFYEDIjw_i|tp36RZmFYEDIjw_i" id="optiontp36RZmFYEDIjw_i">¿Crear cuenta?
+ : Label</option>
+<option value="shape|441.0|486.0|155.0|15.0|#IUX6RZmFYEDIjw.v;Dp36RZmFYEDIjw_m|#IUX6RZmFYEDIjw.v;Dp36RZmFYEDIjw_m|Dp36RZmFYEDIjw_m" id="optionDp36RZmFYEDIjw_m">Recuperar contraseña : Label</option>
+<option value="shape|330.0|245.0|360.0|363.0|#IUX6RZmFYEDIjw.v;w136RZmFYEDIjxAD|#IUX6RZmFYEDIjw.v;w136RZmFYEDIjxAD|w136RZmFYEDIjxAD" id="optionw136RZmFYEDIjxAD">Panel : Panel</option>
+<option value="shape|476.0|310.0|65.0|60.0|#IUX6RZmFYEDIjw.v;TV36RZmFYEDIjw__|#IUX6RZmFYEDIjw.v;TV36RZmFYEDIjw__|TV36RZmFYEDIjw__" id="optionTV36RZmFYEDIjw__">Image : Image</option>
+<option value="shape|441.0|263.0|154.0|30.0|#IUX6RZmFYEDIjw.v;w136RZmFYEDIjxAF|#IUX6RZmFYEDIjw.v;w136RZmFYEDIjxAF|w136RZmFYEDIjxAF" id="optionw136RZmFYEDIjxAF">Recuperar contraseña : Text Field</option>
+<option value="shape|368.0|387.0|281.0|30.0|#IUX6RZmFYEDIjw.v;I136RZmFYEDIjxAI|#IUX6RZmFYEDIjw.v;I136RZmFYEDIjxAI|I136RZmFYEDIjxAI" id="optionI136RZmFYEDIjxAI">Escriba su correo electronico de recuperacion : Text Field</option>
+<option value="shape|458.0|431.0|100.0|30.0|#IUX6RZmFYEDIjw.v;Y136RZmFYEDIjxAO|#IUX6RZmFYEDIjw.v;Y136RZmFYEDIjxAO|Y136RZmFYEDIjxAO" id="optionY136RZmFYEDIjxAO">Enviar : Button</option>
+<option value="shape|459.0|471.0|100.0|30.0|#IUX6RZmFYEDIjw.v;4136RZmFYEDIjxAR|#IUX6RZmFYEDIjw.v;4136RZmFYEDIjxAR|4136RZmFYEDIjxAR" id="option4136RZmFYEDIjxAR">Volver : Button</option>
+<option value="shape|643.0|316.0|846.0|77.0|#IUX6RZmFYEDIjw.v;W536RZmFYEDIjw_3|#IUX6RZmFYEDIjw.v;W536RZmFYEDIjw_3|W536RZmFYEDIjw_3" id="optionW536RZmFYEDIjw_3">Usuario debera de escribir su correo electronico
+con el que tiene sesion creada para recuperar la cuenta
+ : Annotation</option>
+</select>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<span data-value="IUX6RZmFYEDIjw.v" style="display: none;" id="defaultState">
+		</span>
+		<span data-value="Web Wireframe - recuperar contrase&#xf1;a -  Usuario selecciona recuperar contrase&#xf1;a" style="display: none;" id="defaultPageTitleText">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagramIUX6RZmFYEDIjw.v" src="../images/recuperar_contrasea_Usuario_selecciona_recuperar_contrasea.png" usemap="#diagramIUX6RZmFYEDIjw.v_map" class="Image" width="1493" height="774"/>
+					<map name="diagramIUX6RZmFYEDIjw.v_map">
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="643, 316, 1489, 393" coords2="643, 316, 1489, 393" shape="rect" alt="Usuario debera de escribir su correo electronico
+con el que tiene sesion creada para recuperar la cuenta
+:Annotation" id="areadiagramIUX6RZmFYEDIjw.v_map_W536RZmFYEDIjw_3" href="#IUX6RZmFYEDIjw.v;W536RZmFYEDIjw_3" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="459, 471, 559, 501" coords2="459, 471, 559, 501" shape="rect" alt="Volver:Button" id="areadiagramIUX6RZmFYEDIjw.v_map_4136RZmFYEDIjxAR" href="#IUX6RZmFYEDIjw.v;4136RZmFYEDIjxAR" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="458, 431, 558, 461" coords2="458, 431, 558, 461" shape="rect" alt="Enviar:Button" id="areadiagramIUX6RZmFYEDIjw.v_map_Y136RZmFYEDIjxAO" href="#IUX6RZmFYEDIjw.v;Y136RZmFYEDIjxAO" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="368, 387, 649, 417" coords2="368, 387, 649, 417" shape="rect" alt="Escriba su correo electronico de recuperacion:Text Field" id="areadiagramIUX6RZmFYEDIjw.v_map_I136RZmFYEDIjxAI" href="#IUX6RZmFYEDIjw.v;I136RZmFYEDIjxAI" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="441, 263, 595, 293" coords2="441, 263, 595, 293" shape="rect" alt="Recuperar contraseña:Text Field" id="areadiagramIUX6RZmFYEDIjw.v_map_w136RZmFYEDIjxAF" href="#IUX6RZmFYEDIjw.v;w136RZmFYEDIjxAF" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="476, 310, 541, 370" coords2="476, 310, 541, 370" shape="rect" alt="Image:Image" id="areadiagramIUX6RZmFYEDIjw.v_map_TV36RZmFYEDIjw__" href="#IUX6RZmFYEDIjw.v;TV36RZmFYEDIjw__" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="330, 245, 690, 608" coords2="330, 245, 690, 608" shape="rect" alt="Panel:Panel" id="areadiagramIUX6RZmFYEDIjw.v_map_w136RZmFYEDIjxAD" href="#IUX6RZmFYEDIjw.v;w136RZmFYEDIjxAD" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="441, 486, 596, 501" coords2="441, 486, 596, 501" shape="rect" alt="Recuperar contraseña:Label" id="areadiagramIUX6RZmFYEDIjw.v_map_Dp36RZmFYEDIjw_m" href="#IUX6RZmFYEDIjw.v;Dp36RZmFYEDIjw_m" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="464, 467, 564, 484" coords2="464, 467, 564, 484" shape="rect" alt="¿Crear cuenta?
+:Label" id="areadiagramIUX6RZmFYEDIjw.v_map_tp36RZmFYEDIjw_i" href="#IUX6RZmFYEDIjw.v;tp36RZmFYEDIjw_i" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="459, 557, 559, 587" coords2="459, 557, 559, 587" shape="rect" alt="Cancelar:Button" id="areadiagramIUX6RZmFYEDIjw.v_map_1p36RZmFYEDIjw_f" href="#IUX6RZmFYEDIjw.v;1p36RZmFYEDIjw_f" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="459, 520, 559, 550" coords2="459, 520, 559, 550" shape="rect" alt="Iniciar sesion:Button" id="areadiagramIUX6RZmFYEDIjw.v_map_Vp36RZmFYEDIjw_c" href="#IUX6RZmFYEDIjw.v;Vp36RZmFYEDIjw_c" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="442, 437, 577, 467" coords2="442, 437, 577, 467" shape="rect" alt="123456:Text Field" id="areadiagramIUX6RZmFYEDIjw.v_map_lp36RZmFYEDIjw_Z" href="#IUX6RZmFYEDIjw.v;lp36RZmFYEDIjw_Z" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="442, 387, 577, 417" coords2="442, 387, 577, 417" shape="rect" alt="Pedro Elias:Text Field" id="areadiagramIUX6RZmFYEDIjw.v_map_Fp36RZmFYEDIjw_W" href="#IUX6RZmFYEDIjw.v;Fp36RZmFYEDIjw_W" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="460, 263, 560, 293" coords2="460, 263, 560, 293" shape="rect" alt="Iniciar sesion:Text Field" id="areadiagramIUX6RZmFYEDIjw.v_map_Zp36RZmFYEDIjw_T" href="#IUX6RZmFYEDIjw.v;Zp36RZmFYEDIjw_T" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="476, 310, 541, 370" coords2="476, 310, 541, 370" shape="rect" alt="Image:Image" id="areadiagramIUX6RZmFYEDIjw.v_map_Sp36RZmFYEDIjw_N" href="#IUX6RZmFYEDIjw.v;Sp36RZmFYEDIjw_N" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="330, 245, 690, 608" coords2="330, 245, 690, 608" shape="rect" alt="Panel:Panel" id="areadiagramIUX6RZmFYEDIjw.v_map_pp36RZmFYEDIjw_R" href="#IUX6RZmFYEDIjw.v;pp36RZmFYEDIjw_R" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIUX6RZmFYEDIjw.v" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagramIUX6RZmFYEDIjw.v_map_2UX6RZmFYEDIjw.w" href="#IUX6RZmFYEDIjw.v;2UX6RZmFYEDIjw.w" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+	</p>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0" id="elementsIUX6RZmFYEDIjw.v">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Display Text</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Browser.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Browser.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Web Browser : Browser</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;2UX6RZmFYEDIjw.w"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Panel.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Panel.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Panel : Panel</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;pp36RZmFYEDIjw_R"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;Sp36RZmFYEDIjw_N"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Iniciar sesion : Text Field</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;Zp36RZmFYEDIjw_T"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Pedro Elias : Text Field</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;Fp36RZmFYEDIjw_W"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">123456 : Text Field</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;lp36RZmFYEDIjw_Z"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Iniciar sesion : Button</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;Vp36RZmFYEDIjw_c"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Cancelar : Button</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;1p36RZmFYEDIjw_f"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">¿Crear cuenta?<br> : Label</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;tp36RZmFYEDIjw_i"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Recuperar contraseña : Label</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;Dp36RZmFYEDIjw_m"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Panel.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Panel.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Panel : Panel</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;w136RZmFYEDIjxAD"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;TV36RZmFYEDIjw__"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Recuperar contraseña : Text Field</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;w136RZmFYEDIjxAF"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Escriba su correo electronico de recuperacion : Text Field</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;I136RZmFYEDIjxAI"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Enviar : Button</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;Y136RZmFYEDIjxAO"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Volver : Button</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;4136RZmFYEDIjxAR"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Annotation.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Annotation.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Usuario debera de escribir su correo electronico<br>con el que tiene sesion creada para recuperar la cuenta<br> : Annotation</span>				</span>
+<a name="IUX6RZmFYEDIjw.v;W536RZmFYEDIjw_3"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="width:370px; height:255px; position: fixed; _position: absolute; overflow: scroll; background-color: #F0F0F0; top: 100px; left: 100px; padding: 10px; display: none;" id="wireframeStatesDialog">
+		<span data-value="Web Wireframe - recuperar contrase&#xf1;a -  Usuario selecciona recuperar contrase&#xf1;a" style="display: none;" id="pageTitleTextIUX6RZmFYEDIjw.v">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 30; top: 30; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeIUX6RZmFYEDIjw.v', 'diagramIUX6RZmFYEDIjw.v', 'none', 'elementsIUX6RZmFYEDIjw.v', 'PageTitleText', 'pageTitleTextIUX6RZmFYEDIjw.v')"><img src="../images/recuperar_contrasea_Usuario_selecciona_recuperar_contrasea_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeIUX6RZmFYEDIjw.v', 'diagramIUX6RZmFYEDIjw.v', 'none', 'elementsIUX6RZmFYEDIjw.v', 'PageTitleText', 'pageTitleTextIUX6RZmFYEDIjw.v')"><span style="color: black !important" class="TableContent ItemLink"> Usuario selecciona recuperar contraseña</span></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		KN-STORE	</div>
+</body>
+</html>

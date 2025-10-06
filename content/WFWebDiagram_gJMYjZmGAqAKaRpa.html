@@ -1,0 +1,711 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Web Wireframe - Compras</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initWireframeDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		KN-STORE	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Web Wireframe - Compras		</span>
+<a onclick="javascript: showVpLink('KN-STORE.vpp://diagram/gJMYjZmGAqAKaRpa', 'Compras\nKN-STORE.vpp://diagram/gJMYjZmGAqAKaRpa', 'Compras', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="auto" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;">
+			<tr>
+				<td>
+<a href="javascript:showWireframeStatesDialog()"><span class="TableContent ItemLink">Show State Overview</span></a>				</td>
+				<td width="10px">
+				</td>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" id="selectShape0JMYjZmGAqAKaRpc">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagram0JMYjZmGAqAKaRpc', this.value);hideLinkPopup();showSpotLight('diagram0JMYjZmGAqAKaRpc', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#0JMYjZmGAqAKaRpc;7JMYjZmGAqAKaRpd|#0JMYjZmGAqAKaRpc;7JMYjZmGAqAKaRpd|7JMYjZmGAqAKaRpd" id="option7JMYjZmGAqAKaRpd">Web Browser : Browser</option>
+<option value="shape|449.0|69.0|151.0|55.0|#0JMYjZmGAqAKaRpc;_myYjZmGAqAKaRt9|#0JMYjZmGAqAKaRpc;_myYjZmGAqAKaRt9|_myYjZmGAqAKaRt9" id="option_myYjZmGAqAKaRt9">kn-store  : Text Field</option>
+<option value="shape|134.0|144.0|780.0|67.0|#0JMYjZmGAqAKaRpc;iWyYjZmGAqAKaRuB|#0JMYjZmGAqAKaRpc;iWyYjZmGAqAKaRuB|iWyYjZmGAqAKaRuB" id="optioniWyYjZmGAqAKaRuB">Explore la sección de productos nuevos  : Text Field</option>
+<option value="shape|134.0|456.0|780.0|67.0|#0JMYjZmGAqAKaRpc;RWyYjZmGAqAKaRuF|#0JMYjZmGAqAKaRpc;RWyYjZmGAqAKaRuF|RWyYjZmGAqAKaRuF" id="optionRWyYjZmGAqAKaRuF">Ver el catalogo de todos los productos : Text Field</option>
+<option value="shape|549.0|254.0|130.0|122.0|#0JMYjZmGAqAKaRpc;TWyYjZmGAqAKaRuJ|#0JMYjZmGAqAKaRpc;TWyYjZmGAqAKaRuJ|TWyYjZmGAqAKaRuJ" id="optionTWyYjZmGAqAKaRuJ">Image : Image</option>
+<option value="shape|119.0|254.0|130.0|122.0|#0JMYjZmGAqAKaRpc;U2yYjZmGAqAKaRuN|#0JMYjZmGAqAKaRpc;U2yYjZmGAqAKaRuN|U2yYjZmGAqAKaRuN" id="optionU2yYjZmGAqAKaRuN">Image : Image</option>
+<option value="shape|89.0|389.0|27.0|31.0|#0JMYjZmGAqAKaRpc;R2yYjZmGAqAKaRuR|#0JMYjZmGAqAKaRpc;R2yYjZmGAqAKaRuR|R2yYjZmGAqAKaRuR" id="optionR2yYjZmGAqAKaRuR">Image : Image</option>
+<option value="shape|759.0|254.0|130.0|122.0|#0JMYjZmGAqAKaRpc;z2yYjZmGAqAKaRuV|#0JMYjZmGAqAKaRpc;z2yYjZmGAqAKaRuV|z2yYjZmGAqAKaRuV" id="optionz2yYjZmGAqAKaRuV">Image : Image</option>
+<option value="shape|339.0|254.0|130.0|122.0|#0JMYjZmGAqAKaRpc;0OyYjZmGAqAKaRuZ|#0JMYjZmGAqAKaRpc;0OyYjZmGAqAKaRuZ|0OyYjZmGAqAKaRuZ" id="option0OyYjZmGAqAKaRuZ">Image : Image</option>
+<option value="shape|124.0|389.0|125.0|30.0|#0JMYjZmGAqAKaRpc;ZOyYjZmGAqAKaRud|#0JMYjZmGAqAKaRpc;ZOyYjZmGAqAKaRud|ZOyYjZmGAqAKaRud" id="optionZOyYjZmGAqAKaRud">Agregar al carrito : Button</option>
+<option value="shape|316.0|389.0|27.0|31.0|#0JMYjZmGAqAKaRpc;HOyYjZmGAqAKaRuh|#0JMYjZmGAqAKaRpc;HOyYjZmGAqAKaRuh|HOyYjZmGAqAKaRuh" id="optionHOyYjZmGAqAKaRuh">Image : Image</option>
+<option value="shape|351.0|389.0|118.0|30.0|#0JMYjZmGAqAKaRpc;UuyYjZmGAqAKaRul|#0JMYjZmGAqAKaRpc;UuyYjZmGAqAKaRul|UuyYjZmGAqAKaRul" id="optionUuyYjZmGAqAKaRul">Agregar al carrito : Button</option>
+<option value="shape|519.0|389.0|27.0|31.0|#0JMYjZmGAqAKaRpc;huyYjZmGAqAKaRup|#0JMYjZmGAqAKaRpc;huyYjZmGAqAKaRup|huyYjZmGAqAKaRup" id="optionhuyYjZmGAqAKaRup">Image : Image</option>
+<option value="shape|554.0|389.0|115.0|30.0|#0JMYjZmGAqAKaRpc;buyYjZmGAqAKaRut|#0JMYjZmGAqAKaRpc;buyYjZmGAqAKaRut|buyYjZmGAqAKaRut" id="optionbuyYjZmGAqAKaRut">Agregar al carrito : Button</option>
+<option value="shape|739.0|389.0|27.0|31.0|#0JMYjZmGAqAKaRpc;keyYjZmGAqAKaRux|#0JMYjZmGAqAKaRpc;keyYjZmGAqAKaRux|keyYjZmGAqAKaRux" id="optionkeyYjZmGAqAKaRux">Image : Image</option>
+<option value="shape|774.0|389.0|115.0|30.0|#0JMYjZmGAqAKaRpc;BeyYjZmGAqAKaRu1|#0JMYjZmGAqAKaRpc;BeyYjZmGAqAKaRu1|BeyYjZmGAqAKaRu1" id="optionBeyYjZmGAqAKaRu1">Agregar al carrito : Button</option>
+<option value="shape|549.0|544.0|130.0|122.0|#0JMYjZmGAqAKaRpc;veyYjZmGAqAKaRu5|#0JMYjZmGAqAKaRpc;veyYjZmGAqAKaRu5|veyYjZmGAqAKaRu5" id="optionveyYjZmGAqAKaRu5">Image : Image</option>
+<option value="shape|119.0|544.0|130.0|122.0|#0JMYjZmGAqAKaRpc;K.yYjZmGAqAKaRu9|#0JMYjZmGAqAKaRpc;K.yYjZmGAqAKaRu9|K.yYjZmGAqAKaRu9" id="optionK.yYjZmGAqAKaRu9">Image : Image</option>
+<option value="shape|89.0|679.0|27.0|31.0|#0JMYjZmGAqAKaRpc;T.yYjZmGAqAKaRvB|#0JMYjZmGAqAKaRpc;T.yYjZmGAqAKaRvB|T.yYjZmGAqAKaRvB" id="optionT.yYjZmGAqAKaRvB">Image : Image</option>
+<option value="shape|759.0|544.0|130.0|122.0|#0JMYjZmGAqAKaRpc;qByYjZmGAqAKaRvF|#0JMYjZmGAqAKaRpc;qByYjZmGAqAKaRvF|qByYjZmGAqAKaRvF" id="optionqByYjZmGAqAKaRvF">Image : Image</option>
+<option value="shape|339.0|544.0|130.0|122.0|#0JMYjZmGAqAKaRpc;dByYjZmGAqAKaRvJ|#0JMYjZmGAqAKaRpc;dByYjZmGAqAKaRvJ|dByYjZmGAqAKaRvJ" id="optiondByYjZmGAqAKaRvJ">Image : Image</option>
+<option value="shape|124.0|679.0|125.0|31.0|#0JMYjZmGAqAKaRpc;IhyYjZmGAqAKaRvN|#0JMYjZmGAqAKaRpc;IhyYjZmGAqAKaRvN|IhyYjZmGAqAKaRvN" id="optionIhyYjZmGAqAKaRvN">Agregar al carrito : Button</option>
+<option value="shape|316.0|679.0|27.0|31.0|#0JMYjZmGAqAKaRpc;qhyYjZmGAqAKaRvR|#0JMYjZmGAqAKaRpc;qhyYjZmGAqAKaRvR|qhyYjZmGAqAKaRvR" id="optionqhyYjZmGAqAKaRvR">Image : Image</option>
+<option value="shape|351.0|679.0|134.0|31.0|#0JMYjZmGAqAKaRpc;phyYjZmGAqAKaRvV|#0JMYjZmGAqAKaRpc;phyYjZmGAqAKaRvV|phyYjZmGAqAKaRvV" id="optionphyYjZmGAqAKaRvV">Agregar al carrito : Button</option>
+<option value="shape|519.0|679.0|27.0|31.0|#0JMYjZmGAqAKaRpc;rhyYjZmGAqAKaRvZ|#0JMYjZmGAqAKaRpc;rhyYjZmGAqAKaRvZ|rhyYjZmGAqAKaRvZ" id="optionrhyYjZmGAqAKaRvZ">Image : Image</option>
+<option value="shape|554.0|679.0|125.0|31.0|#0JMYjZmGAqAKaRpc;oRyYjZmGAqAKaRvd|#0JMYjZmGAqAKaRpc;oRyYjZmGAqAKaRvd|oRyYjZmGAqAKaRvd" id="optionoRyYjZmGAqAKaRvd">Agregar al carrito : Button</option>
+<option value="shape|739.0|679.0|27.0|31.0|#0JMYjZmGAqAKaRpc;qRyYjZmGAqAKaRvh|#0JMYjZmGAqAKaRpc;qRyYjZmGAqAKaRvh|qRyYjZmGAqAKaRvh" id="optionqRyYjZmGAqAKaRvh">Image : Image</option>
+<option value="shape|774.0|679.0|140.0|31.0|#0JMYjZmGAqAKaRpc;pRyYjZmGAqAKaRvl|#0JMYjZmGAqAKaRpc;pRyYjZmGAqAKaRvl|pRyYjZmGAqAKaRvl" id="optionpRyYjZmGAqAKaRvl">Agregar al carrito : Button</option>
+<option value="shape|2.0|534.0|1022.0|10.0|#0JMYjZmGAqAKaRpc;7RyYjZmGAqAKaRvp|#0JMYjZmGAqAKaRpc;7RyYjZmGAqAKaRvp|7RyYjZmGAqAKaRvp" id="option7RyYjZmGAqAKaRvp">Line : Line</option>
+</select>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<span data-value="0JMYjZmGAqAKaRpc" style="display: none;" id="defaultState">
+		</span>
+		<span data-value="Web Wireframe - Compras - CLIENTEANONIMO generar compras" style="display: none;" id="defaultPageTitleText">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram0JMYjZmGAqAKaRpc" src="../images/Compras_CLIENTEANONIMO_generar_compras.png" usemap="#diagram0JMYjZmGAqAKaRpc_map" class="Image" width="1030" height="774"/>
+					<map name="diagram0JMYjZmGAqAKaRpc_map">
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="2, 534, 1024, 544" coords2="2, 534, 1024, 544" shape="rect" alt="Line:Line" id="areadiagram0JMYjZmGAqAKaRpc_map_7RyYjZmGAqAKaRvp" href="#0JMYjZmGAqAKaRpc;7RyYjZmGAqAKaRvp" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="774, 679, 914, 710" coords2="774, 679, 914, 710" shape="rect" alt="Agregar al carrito:Button" id="areadiagram0JMYjZmGAqAKaRpc_map_pRyYjZmGAqAKaRvl" href="#0JMYjZmGAqAKaRpc;pRyYjZmGAqAKaRvl" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="739, 679, 766, 710" coords2="739, 679, 766, 710" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_qRyYjZmGAqAKaRvh" href="#0JMYjZmGAqAKaRpc;qRyYjZmGAqAKaRvh" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="554, 679, 679, 710" coords2="554, 679, 679, 710" shape="rect" alt="Agregar al carrito:Button" id="areadiagram0JMYjZmGAqAKaRpc_map_oRyYjZmGAqAKaRvd" href="#0JMYjZmGAqAKaRpc;oRyYjZmGAqAKaRvd" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="519, 679, 546, 710" coords2="519, 679, 546, 710" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_rhyYjZmGAqAKaRvZ" href="#0JMYjZmGAqAKaRpc;rhyYjZmGAqAKaRvZ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="351, 679, 485, 710" coords2="351, 679, 485, 710" shape="rect" alt="Agregar al carrito:Button" id="areadiagram0JMYjZmGAqAKaRpc_map_phyYjZmGAqAKaRvV" href="#0JMYjZmGAqAKaRpc;phyYjZmGAqAKaRvV" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="316, 679, 343, 710" coords2="316, 679, 343, 710" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_qhyYjZmGAqAKaRvR" href="#0JMYjZmGAqAKaRpc;qhyYjZmGAqAKaRvR" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="124, 679, 249, 710" coords2="124, 679, 249, 710" shape="rect" alt="Agregar al carrito:Button" id="areadiagram0JMYjZmGAqAKaRpc_map_IhyYjZmGAqAKaRvN" href="#0JMYjZmGAqAKaRpc;IhyYjZmGAqAKaRvN" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="339, 544, 469, 666" coords2="339, 544, 469, 666" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_dByYjZmGAqAKaRvJ" href="#0JMYjZmGAqAKaRpc;dByYjZmGAqAKaRvJ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="759, 544, 889, 666" coords2="759, 544, 889, 666" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_qByYjZmGAqAKaRvF" href="#0JMYjZmGAqAKaRpc;qByYjZmGAqAKaRvF" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="89, 679, 116, 710" coords2="89, 679, 116, 710" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_T.yYjZmGAqAKaRvB" href="#0JMYjZmGAqAKaRpc;T.yYjZmGAqAKaRvB" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="119, 544, 249, 666" coords2="119, 544, 249, 666" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_K.yYjZmGAqAKaRu9" href="#0JMYjZmGAqAKaRpc;K.yYjZmGAqAKaRu9" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="549, 544, 679, 666" coords2="549, 544, 679, 666" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_veyYjZmGAqAKaRu5" href="#0JMYjZmGAqAKaRpc;veyYjZmGAqAKaRu5" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="774, 389, 889, 419" coords2="774, 389, 889, 419" shape="rect" alt="Agregar al carrito:Button" id="areadiagram0JMYjZmGAqAKaRpc_map_BeyYjZmGAqAKaRu1" href="#0JMYjZmGAqAKaRpc;BeyYjZmGAqAKaRu1" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="739, 389, 766, 420" coords2="739, 389, 766, 420" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_keyYjZmGAqAKaRux" href="#0JMYjZmGAqAKaRpc;keyYjZmGAqAKaRux" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="554, 389, 669, 419" coords2="554, 389, 669, 419" shape="rect" alt="Agregar al carrito:Button" id="areadiagram0JMYjZmGAqAKaRpc_map_buyYjZmGAqAKaRut" href="#0JMYjZmGAqAKaRpc;buyYjZmGAqAKaRut" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="519, 389, 546, 420" coords2="519, 389, 546, 420" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_huyYjZmGAqAKaRup" href="#0JMYjZmGAqAKaRpc;huyYjZmGAqAKaRup" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="351, 389, 469, 419" coords2="351, 389, 469, 419" shape="rect" alt="Agregar al carrito:Button" id="areadiagram0JMYjZmGAqAKaRpc_map_UuyYjZmGAqAKaRul" href="#0JMYjZmGAqAKaRpc;UuyYjZmGAqAKaRul" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="316, 389, 343, 420" coords2="316, 389, 343, 420" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_HOyYjZmGAqAKaRuh" href="#0JMYjZmGAqAKaRpc;HOyYjZmGAqAKaRuh" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="124, 389, 249, 419" coords2="124, 389, 249, 419" shape="rect" alt="Agregar al carrito:Button" id="areadiagram0JMYjZmGAqAKaRpc_map_ZOyYjZmGAqAKaRud" href="#0JMYjZmGAqAKaRpc;ZOyYjZmGAqAKaRud" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="339, 254, 469, 376" coords2="339, 254, 469, 376" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_0OyYjZmGAqAKaRuZ" href="#0JMYjZmGAqAKaRpc;0OyYjZmGAqAKaRuZ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="759, 254, 889, 376" coords2="759, 254, 889, 376" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_z2yYjZmGAqAKaRuV" href="#0JMYjZmGAqAKaRpc;z2yYjZmGAqAKaRuV" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="89, 389, 116, 420" coords2="89, 389, 116, 420" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_R2yYjZmGAqAKaRuR" href="#0JMYjZmGAqAKaRpc;R2yYjZmGAqAKaRuR" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="119, 254, 249, 376" coords2="119, 254, 249, 376" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_U2yYjZmGAqAKaRuN" href="#0JMYjZmGAqAKaRpc;U2yYjZmGAqAKaRuN" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="549, 254, 679, 376" coords2="549, 254, 679, 376" shape="rect" alt="Image:Image" id="areadiagram0JMYjZmGAqAKaRpc_map_TWyYjZmGAqAKaRuJ" href="#0JMYjZmGAqAKaRpc;TWyYjZmGAqAKaRuJ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="134, 456, 914, 523" coords2="134, 456, 914, 523" shape="rect" alt="Ver el catalogo de todos los productos:Text Field" id="areadiagram0JMYjZmGAqAKaRpc_map_RWyYjZmGAqAKaRuF" href="#0JMYjZmGAqAKaRpc;RWyYjZmGAqAKaRuF" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="134, 144, 914, 211" coords2="134, 144, 914, 211" shape="rect" alt="Explore la sección de productos nuevos :Text Field" id="areadiagram0JMYjZmGAqAKaRpc_map_iWyYjZmGAqAKaRuB" href="#0JMYjZmGAqAKaRpc;iWyYjZmGAqAKaRuB" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;margin-right:0;color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p align=&amp;quot;center&amp;quot; style=&amp;quot;margin-right:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-top:0pt;text-align:center;&amp;quot;&amp;gt;
+      &amp;lt;font size=&amp;quot;16px&amp;quot; style=&amp;quot;font-size:16px;&amp;quot;&amp;gt;&amp;lt;b&amp;gt;KN-STORE&amp;lt;/b&amp;gt;&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="449, 69, 600, 124" coords2="449, 69, 600, 124" shape="rect" alt="kn-store :Text Field" id="areadiagram0JMYjZmGAqAKaRpc_map__myYjZmGAqAKaRt9" href="#0JMYjZmGAqAKaRpc;_myYjZmGAqAKaRt9" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram0JMYjZmGAqAKaRpc" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagram0JMYjZmGAqAKaRpc_map_7JMYjZmGAqAKaRpd" href="#0JMYjZmGAqAKaRpc;7JMYjZmGAqAKaRpd" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+	</p>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0" id="elements0JMYjZmGAqAKaRpc">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Display Text</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Browser.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Browser.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Web Browser : Browser</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;7JMYjZmGAqAKaRpd"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">kn-store  : Text Field</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;_myYjZmGAqAKaRt9"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="margin-right:0;color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;">
+    <p align="center" style="margin-right:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-top:0pt;text-align:center;">
+      <font size="16px" style="font-size:16px;"><b>KN-STORE</b></font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Explore la sección de productos nuevos  : Text Field</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;iWyYjZmGAqAKaRuB"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Ver el catalogo de todos los productos : Text Field</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;RWyYjZmGAqAKaRuF"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;TWyYjZmGAqAKaRuJ"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;U2yYjZmGAqAKaRuN"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;R2yYjZmGAqAKaRuR"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;z2yYjZmGAqAKaRuV"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;0OyYjZmGAqAKaRuZ"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Agregar al carrito : Button</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;ZOyYjZmGAqAKaRud"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;HOyYjZmGAqAKaRuh"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Agregar al carrito : Button</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;UuyYjZmGAqAKaRul"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;huyYjZmGAqAKaRup"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Agregar al carrito : Button</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;buyYjZmGAqAKaRut"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;keyYjZmGAqAKaRux"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Agregar al carrito : Button</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;BeyYjZmGAqAKaRu1"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;veyYjZmGAqAKaRu5"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;K.yYjZmGAqAKaRu9"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;T.yYjZmGAqAKaRvB"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;qByYjZmGAqAKaRvF"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;dByYjZmGAqAKaRvJ"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Agregar al carrito : Button</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;IhyYjZmGAqAKaRvN"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;qhyYjZmGAqAKaRvR"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Agregar al carrito : Button</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;phyYjZmGAqAKaRvV"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;rhyYjZmGAqAKaRvZ"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Agregar al carrito : Button</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;oRyYjZmGAqAKaRvd"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;qRyYjZmGAqAKaRvh"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Agregar al carrito : Button</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;pRyYjZmGAqAKaRvl"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Line.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Line.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Line : Line</span>				</span>
+<a name="0JMYjZmGAqAKaRpc;7RyYjZmGAqAKaRvp"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="width:370px; height:255px; position: fixed; _position: absolute; overflow: scroll; background-color: #F0F0F0; top: 100px; left: 100px; padding: 10px; display: none;" id="wireframeStatesDialog">
+		<span data-value="Web Wireframe - Compras - CLIENTEANONIMO generar compras" style="display: none;" id="pageTitleText0JMYjZmGAqAKaRpc">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 30; top: 30; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShape0JMYjZmGAqAKaRpc', 'diagram0JMYjZmGAqAKaRpc', 'none', 'elements0JMYjZmGAqAKaRpc', 'PageTitleText', 'pageTitleText0JMYjZmGAqAKaRpc')"><img src="../images/Compras_CLIENTEANONIMO_generar_compras_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShape0JMYjZmGAqAKaRpc', 'diagram0JMYjZmGAqAKaRpc', 'none', 'elements0JMYjZmGAqAKaRpc', 'PageTitleText', 'pageTitleText0JMYjZmGAqAKaRpc')"><span style="color: black !important" class="TableContent ItemLink">CLIENTEANONIMO generar compras</span></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		KN-STORE	</div>
+</body>
+</html>

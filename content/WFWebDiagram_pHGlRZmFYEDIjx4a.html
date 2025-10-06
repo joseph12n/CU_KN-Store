@@ -1,0 +1,447 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Web Wireframe - gestion</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initWireframeDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		KN-STORE	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Web Wireframe - gestion		</span>
+<a onclick="javascript: showVpLink('KN-STORE.vpp://diagram/pHGlRZmFYEDIjx4a', 'gestion\nKN-STORE.vpp://diagram/pHGlRZmFYEDIjx4a', 'gestion', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="auto" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;">
+			<tr>
+				<td>
+<a href="javascript:showWireframeStatesDialog()"><span class="TableContent ItemLink">Show State Overview</span></a>				</td>
+				<td width="10px">
+				</td>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" id="selectShapeFHGlRZmFYEDIjx4c">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagramFHGlRZmFYEDIjx4c', this.value);hideLinkPopup();showSpotLight('diagramFHGlRZmFYEDIjx4c', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#FHGlRZmFYEDIjx4c;_HGlRZmFYEDIjx4d|#FHGlRZmFYEDIjx4c;_HGlRZmFYEDIjx4d|_HGlRZmFYEDIjx4d" id="option_HGlRZmFYEDIjx4d">Web Browser : Browser</option>
+<option value="shape|142.0|152.0|745.0|515.0|#FHGlRZmFYEDIjx4c;DmWlRZmFYEDIjx5C|#FHGlRZmFYEDIjx4c;DmWlRZmFYEDIjx5C|DmWlRZmFYEDIjx5C" id="optionDmWlRZmFYEDIjx5C">Panel : Panel</option>
+<option value="shape|206.0|257.0|219.0|45.0|#FHGlRZmFYEDIjx4c;.mWlRZmFYEDIjx49|#FHGlRZmFYEDIjx4c;.mWlRZmFYEDIjx49|.mWlRZmFYEDIjx49" id="option.mWlRZmFYEDIjx49">Dropdown : Dropdown</option>
+<option value="shape|639.0|323.0|100.0|30.0|#FHGlRZmFYEDIjx4c;jmWlRZmFYEDIjx5E|#FHGlRZmFYEDIjx4c;jmWlRZmFYEDIjx5E|jmWlRZmFYEDIjx5E" id="optionjmWlRZmFYEDIjx5E">Gestionar roles : Button</option>
+<option value="shape|206.0|362.0|273.0|160.0|#FHGlRZmFYEDIjx4c;bmWlRZmFYEDIjx5W|#FHGlRZmFYEDIjx4c;bmWlRZmFYEDIjx5W|bmWlRZmFYEDIjx5W" id="optionbmWlRZmFYEDIjx5W">Panel : Panel</option>
+<option value="shape|222.0|377.0|200.0|121.0|#FHGlRZmFYEDIjx4c;7mWlRZmFYEDIjx5Y|#FHGlRZmFYEDIjx4c;7mWlRZmFYEDIjx5Y|7mWlRZmFYEDIjx5Y" id="option7mWlRZmFYEDIjx5Y">Eduardo perez
+provedor_3 
+rol_3
+Tiene permisos de ver el stock  : Label</option>
+<option value="shape|208.0|317.0|140.0|30.0|#FHGlRZmFYEDIjx4c;rmWlRZmFYEDIjx5T|#FHGlRZmFYEDIjx4c;rmWlRZmFYEDIjx5T|rmWlRZmFYEDIjx5T" id="optionrmWlRZmFYEDIjx5T">Nuevo rol:  Rol_3     : Text Field</option>
+<option value="shape|416.0|160.0|196.0|60.0|#FHGlRZmFYEDIjx4c;LmWlRZmFYEDIjx5Q|#FHGlRZmFYEDIjx4c;LmWlRZmFYEDIjx5Q|LmWlRZmFYEDIjx5Q" id="optionLmWlRZmFYEDIjx5Q">Button : Button</option>
+<option value="shape|639.0|264.0|100.0|30.0|#FHGlRZmFYEDIjx4c;zmWlRZmFYEDIjx5N|#FHGlRZmFYEDIjx4c;zmWlRZmFYEDIjx5N|zmWlRZmFYEDIjx5N" id="optionzmWlRZmFYEDIjx5N">Crear roles : Button</option>
+<option value="shape|642.0|441.0|100.0|30.0|#FHGlRZmFYEDIjx4c;zmWlRZmFYEDIjx5K|#FHGlRZmFYEDIjx4c;zmWlRZmFYEDIjx5K|zmWlRZmFYEDIjx5K" id="optionzmWlRZmFYEDIjx5K">Eliminar roles : Button</option>
+<option value="shape|639.0|382.0|103.0|30.0|#FHGlRZmFYEDIjx4c;TmWlRZmFYEDIjx5H|#FHGlRZmFYEDIjx4c;TmWlRZmFYEDIjx5H|TmWlRZmFYEDIjx5H" id="optionTmWlRZmFYEDIjx5H">Modificar roles : Button</option>
+<option value="shape|349.0|550.0|333.0|60.0|#FHGlRZmFYEDIjx4c;Nz.lRZmFYEDIjx6B|#FHGlRZmFYEDIjx4c;Nz.lRZmFYEDIjx6B|Nz.lRZmFYEDIjx6B" id="optionNz.lRZmFYEDIjx6B">Rectangle : Rectangle</option>
+<option value="shape|427.0|564.0|176.0|21.0|#FHGlRZmFYEDIjx4c;AExlRZmFYEDIjx6j|#FHGlRZmFYEDIjx4c;AExlRZmFYEDIjx6j|AExlRZmFYEDIjx6j" id="optionAExlRZmFYEDIjx6j">Nuevo rol creado con exito : Label</option>
+</select>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<span data-value="FHGlRZmFYEDIjx4c" style="display: none;" id="defaultState">
+		</span>
+		<span data-value="Web Wireframe - gestion - Datos validos" style="display: none;" id="defaultPageTitleText">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagramFHGlRZmFYEDIjx4c" src="../images/gestion_Datos_validos.png" usemap="#diagramFHGlRZmFYEDIjx4c_map" class="Image" width="1030" height="774"/>
+					<map name="diagramFHGlRZmFYEDIjx4c_map">
+<area imageId="diagramFHGlRZmFYEDIjx4c" coords="427, 564, 603, 585" coords2="427, 564, 603, 585" shape="rect" alt="Nuevo rol creado con exito:Label" id="areadiagramFHGlRZmFYEDIjx4c_map_AExlRZmFYEDIjx6j" href="#FHGlRZmFYEDIjx4c;AExlRZmFYEDIjx6j" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFHGlRZmFYEDIjx4c" coords="349, 550, 682, 610" coords2="349, 550, 682, 610" shape="rect" alt="Rectangle:Rectangle" id="areadiagramFHGlRZmFYEDIjx4c_map_Nz.lRZmFYEDIjx6B" href="#FHGlRZmFYEDIjx4c;Nz.lRZmFYEDIjx6B" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFHGlRZmFYEDIjx4c" coords="639, 382, 742, 412" coords2="639, 382, 742, 412" shape="rect" alt="Modificar roles:Button" id="areadiagramFHGlRZmFYEDIjx4c_map_TmWlRZmFYEDIjx5H" href="#FHGlRZmFYEDIjx4c;TmWlRZmFYEDIjx5H" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFHGlRZmFYEDIjx4c" coords="642, 441, 742, 471" coords2="642, 441, 742, 471" shape="rect" alt="Eliminar roles:Button" id="areadiagramFHGlRZmFYEDIjx4c_map_zmWlRZmFYEDIjx5K" href="#FHGlRZmFYEDIjx4c;zmWlRZmFYEDIjx5K" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFHGlRZmFYEDIjx4c" coords="639, 264, 739, 294" coords2="639, 264, 739, 294" shape="rect" alt="Crear roles:Button" id="areadiagramFHGlRZmFYEDIjx4c_map_zmWlRZmFYEDIjx5N" href="#FHGlRZmFYEDIjx4c;zmWlRZmFYEDIjx5N" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFHGlRZmFYEDIjx4c" coords="416, 160, 612, 220" coords2="416, 160, 612, 220" shape="rect" alt="Button:Button" id="areadiagramFHGlRZmFYEDIjx4c_map_LmWlRZmFYEDIjx5Q" href="#FHGlRZmFYEDIjx4c;LmWlRZmFYEDIjx5Q" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFHGlRZmFYEDIjx4c" coords="208, 317, 348, 347" coords2="208, 317, 348, 347" shape="rect" alt="Nuevo rol:  Rol_3    :Text Field" id="areadiagramFHGlRZmFYEDIjx4c_map_rmWlRZmFYEDIjx5T" href="#FHGlRZmFYEDIjx4c;rmWlRZmFYEDIjx5T" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFHGlRZmFYEDIjx4c" coords="222, 377, 422, 498" coords2="222, 377, 422, 498" shape="rect" alt="Eduardo perez
+provedor_3 
+rol_3
+Tiene permisos de ver el stock :Label" id="areadiagramFHGlRZmFYEDIjx4c_map_7mWlRZmFYEDIjx5Y" href="#FHGlRZmFYEDIjx4c;7mWlRZmFYEDIjx5Y" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFHGlRZmFYEDIjx4c" coords="206, 362, 479, 522" coords2="206, 362, 479, 522" shape="rect" alt="Panel:Panel" id="areadiagramFHGlRZmFYEDIjx4c_map_bmWlRZmFYEDIjx5W" href="#FHGlRZmFYEDIjx4c;bmWlRZmFYEDIjx5W" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFHGlRZmFYEDIjx4c" coords="639, 323, 739, 353" coords2="639, 323, 739, 353" shape="rect" alt="Gestionar roles:Button" id="areadiagramFHGlRZmFYEDIjx4c_map_jmWlRZmFYEDIjx5E" href="#FHGlRZmFYEDIjx4c;jmWlRZmFYEDIjx5E" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFHGlRZmFYEDIjx4c" coords="206, 257, 425, 302" coords2="206, 257, 425, 302" shape="rect" alt="Dropdown:Dropdown" id="areadiagramFHGlRZmFYEDIjx4c_map_.mWlRZmFYEDIjx49" href="#FHGlRZmFYEDIjx4c;.mWlRZmFYEDIjx49" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFHGlRZmFYEDIjx4c" coords="142, 152, 887, 667" coords2="142, 152, 887, 667" shape="rect" alt="Panel:Panel" id="areadiagramFHGlRZmFYEDIjx4c_map_DmWlRZmFYEDIjx5C" href="#FHGlRZmFYEDIjx4c;DmWlRZmFYEDIjx5C" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramFHGlRZmFYEDIjx4c" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagramFHGlRZmFYEDIjx4c_map__HGlRZmFYEDIjx4d" href="#FHGlRZmFYEDIjx4c;_HGlRZmFYEDIjx4d" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+	</p>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0" id="elementsFHGlRZmFYEDIjx4c">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Display Text</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Browser.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Browser.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Web Browser : Browser</span>				</span>
+<a name="FHGlRZmFYEDIjx4c;_HGlRZmFYEDIjx4d"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Panel.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Panel.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Panel : Panel</span>				</span>
+<a name="FHGlRZmFYEDIjx4c;DmWlRZmFYEDIjx5C"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Dropdown.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Dropdown.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Dropdown : Dropdown</span>				</span>
+<a name="FHGlRZmFYEDIjx4c;.mWlRZmFYEDIjx49"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Gestionar roles : Button</span>				</span>
+<a name="FHGlRZmFYEDIjx4c;jmWlRZmFYEDIjx5E"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Panel.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Panel.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Panel : Panel</span>				</span>
+<a name="FHGlRZmFYEDIjx4c;bmWlRZmFYEDIjx5W"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Eduardo perez<br>provedor_3 <br>rol_3<br>Tiene permisos de ver el stock  : Label</span>				</span>
+<a name="FHGlRZmFYEDIjx4c;7mWlRZmFYEDIjx5Y"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Nuevo rol:  Rol_3     : Text Field</span>				</span>
+<a name="FHGlRZmFYEDIjx4c;rmWlRZmFYEDIjx5T"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Button : Button</span>				</span>
+<a name="FHGlRZmFYEDIjx4c;LmWlRZmFYEDIjx5Q"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Crear roles : Button</span>				</span>
+<a name="FHGlRZmFYEDIjx4c;zmWlRZmFYEDIjx5N"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Eliminar roles : Button</span>				</span>
+<a name="FHGlRZmFYEDIjx4c;zmWlRZmFYEDIjx5K"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Modificar roles : Button</span>				</span>
+<a name="FHGlRZmFYEDIjx4c;TmWlRZmFYEDIjx5H"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/RoundedRectangle.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/RoundedRectangle.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Rectangle : Rectangle</span>				</span>
+<a name="FHGlRZmFYEDIjx4c;Nz.lRZmFYEDIjx6B"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Nuevo rol creado con exito : Label</span>				</span>
+<a name="FHGlRZmFYEDIjx4c;AExlRZmFYEDIjx6j"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="width:370px; height:255px; position: fixed; _position: absolute; overflow: scroll; background-color: #F0F0F0; top: 100px; left: 100px; padding: 10px; display: none;" id="wireframeStatesDialog">
+		<span data-value="Web Wireframe - gestion - Datos validos" style="display: none;" id="pageTitleTextFHGlRZmFYEDIjx4c">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 30; top: 30; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeFHGlRZmFYEDIjx4c', 'diagramFHGlRZmFYEDIjx4c', 'none', 'elementsFHGlRZmFYEDIjx4c', 'PageTitleText', 'pageTitleTextFHGlRZmFYEDIjx4c')"><img src="../images/gestion_Datos_validos_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeFHGlRZmFYEDIjx4c', 'diagramFHGlRZmFYEDIjx4c', 'none', 'elementsFHGlRZmFYEDIjx4c', 'PageTitleText', 'pageTitleTextFHGlRZmFYEDIjx4c')"><span style="color: black !important" class="TableContent ItemLink">Datos validos</span></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		KN-STORE	</div>
+</body>
+</html>

@@ -1,0 +1,695 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Web Wireframe - Mas productsos</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initWireframeDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		KN-STORE	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Web Wireframe - Mas productsos		</span>
+<a onclick="javascript: showVpLink('KN-STORE.vpp://diagram/yz8UjZmGAqAKaSJQ', 'Mas productsos\nKN-STORE.vpp://diagram/yz8UjZmGAqAKaSJQ', 'Mas productsos', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="auto" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;">
+			<tr>
+				<td>
+<a href="javascript:showWireframeStatesDialog()"><span class="TableContent ItemLink">Show State Overview</span></a>				</td>
+				<td width="10px">
+				</td>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" id="selectShape6z8UjZmGAqAKaSJS">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagram6z8UjZmGAqAKaSJS', this.value);hideLinkPopup();showSpotLight('diagram6z8UjZmGAqAKaSJS', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#6z8UjZmGAqAKaSJS;7z8UjZmGAqAKaSJT|#6z8UjZmGAqAKaSJS;7z8UjZmGAqAKaSJT|7z8UjZmGAqAKaSJT" id="option7z8UjZmGAqAKaSJT">Web Browser : Browser</option>
+<option value="shape|138.0|446.0|130.0|123.0|#6z8UjZmGAqAKaSJS;GlKUjZmGAqAKaSJ5|#6z8UjZmGAqAKaSJS;GlKUjZmGAqAKaSJ5|GlKUjZmGAqAKaSJ5" id="optionGlKUjZmGAqAKaSJ5">Image : Image</option>
+<option value="shape|284.0|478.0|213.0|30.0|#6z8UjZmGAqAKaSJS;tVKUjZmGAqAKaSKK|#6z8UjZmGAqAKaSJS;tVKUjZmGAqAKaSKK|tVKUjZmGAqAKaSKK" id="optiontVKUjZmGAqAKaSKK">Referencia 86_kl
+ : Label</option>
+<option value="shape|284.0|512.0|173.0|30.0|#6z8UjZmGAqAKaSJS;r1KUjZmGAqAKaSKe|#6z8UjZmGAqAKaSJS;r1KUjZmGAqAKaSKe|r1KUjZmGAqAKaSKe" id="optionr1KUjZmGAqAKaSKe">$ 300.999
+ : Label</option>
+<option value="shape|128.0|624.0|130.0|123.0|#6z8UjZmGAqAKaSJS;wng0jZmGAqAKaSS7|#6z8UjZmGAqAKaSJS;wng0jZmGAqAKaSS7|wng0jZmGAqAKaSS7" id="optionwng0jZmGAqAKaSS7">Image : Image</option>
+<option value="shape|137.0|284.0|130.0|123.0|#6z8UjZmGAqAKaSJS;eng0jZmGAqAKaSS_|#6z8UjZmGAqAKaSJS;eng0jZmGAqAKaSS_|eng0jZmGAqAKaSS_" id="optioneng0jZmGAqAKaSS_">Image : Image</option>
+<option value="shape|337.0|167.0|406.0|66.0|#6z8UjZmGAqAKaSJS;IXg0jZmGAqAKaSTH|#6z8UjZmGAqAKaSJS;IXg0jZmGAqAKaSTH|IXg0jZmGAqAKaSTH" id="optionIXg0jZmGAqAKaSTH">Carrito de compras : Text Field</option>
+<option value="shape|694.0|187.0|26.0|30.0|#6z8UjZmGAqAKaSJS;Lng0jZmGAqAKaSTD|#6z8UjZmGAqAKaSJS;Lng0jZmGAqAKaSTD|Lng0jZmGAqAKaSTD" id="optionLng0jZmGAqAKaSTD">Image : Image</option>
+<option value="shape|467.0|87.0|150.0|53.0|#6z8UjZmGAqAKaSJS;GXg0jZmGAqAKaSTL|#6z8UjZmGAqAKaSJS;GXg0jZmGAqAKaSTL|GXg0jZmGAqAKaSTL" id="optionGXg0jZmGAqAKaSTL">kn-store  : Text Field</option>
+<option value="shape|287.0|284.0|220.0|30.0|#6z8UjZmGAqAKaSJS;5Xg0jZmGAqAKaSTP|#6z8UjZmGAqAKaSJS;5Xg0jZmGAqAKaSTP|5Xg0jZmGAqAKaSTP" id="option5Xg0jZmGAqAKaSTP">Tennis deportivos nike 
+ : Label</option>
+<option value="shape|287.0|327.0|173.0|30.0|#6z8UjZmGAqAKaSJS;HXg0jZmGAqAKaSTU|#6z8UjZmGAqAKaSJS;HXg0jZmGAqAKaSTU|HXg0jZmGAqAKaSTU" id="optionHXg0jZmGAqAKaSTU">Referencia 30_ca
+ : Label</option>
+<option value="shape|268.0|622.0|223.0|30.0|#6z8UjZmGAqAKaSJS;03g0jZmGAqAKaSTZ|#6z8UjZmGAqAKaSJS;03g0jZmGAqAKaSTZ|03g0jZmGAqAKaSTZ" id="option03g0jZmGAqAKaSTZ">Tennis deportivos vans 
+ : Label</option>
+<option value="shape|274.0|658.0|173.0|30.0|#6z8UjZmGAqAKaSJS;O3g0jZmGAqAKaSTe|#6z8UjZmGAqAKaSJS;O3g0jZmGAqAKaSTe|O3g0jZmGAqAKaSTe" id="optionO3g0jZmGAqAKaSTe">Referencia 70_hl
+ : Label</option>
+<option value="shape|278.0|698.0|173.0|30.0|#6z8UjZmGAqAKaSJS;N3g0jZmGAqAKaSTj|#6z8UjZmGAqAKaSJS;N3g0jZmGAqAKaSTj|N3g0jZmGAqAKaSTj" id="optionN3g0jZmGAqAKaSTj">$ 200.999
+ : Label</option>
+<option value="shape|287.0|367.0|173.0|30.0|#6z8UjZmGAqAKaSJS;P3g0jZmGAqAKaSTo|#6z8UjZmGAqAKaSJS;P3g0jZmGAqAKaSTo|P3g0jZmGAqAKaSTo" id="optionP3g0jZmGAqAKaSTo">$ 300.999
+ : Label</option>
+<option value="shape|694.0|284.0|300.0|463.0|#6z8UjZmGAqAKaSJS;vPg0jZmGAqAKaSTz|#6z8UjZmGAqAKaSJS;vPg0jZmGAqAKaSTz|vPg0jZmGAqAKaSTz" id="optionvPg0jZmGAqAKaSTz">Rectangle : Rectangle</option>
+<option value="shape|700.0|482.0|198.0|22.0|#6z8UjZmGAqAKaSJS;SVKUjZmGAqAKaSKF|#6z8UjZmGAqAKaSJS;SVKUjZmGAqAKaSKF|SVKUjZmGAqAKaSKF" id="optionSVKUjZmGAqAKaSKF">Tennis deportivos adidas 
+ : Label</option>
+<option value="shape|697.0|567.0|296.0|10.0|#6z8UjZmGAqAKaSJS;WPg0jZmGAqAKaSTt|#6z8UjZmGAqAKaSJS;WPg0jZmGAqAKaSTt|WPg0jZmGAqAKaSTt" id="optionWPg0jZmGAqAKaSTt">Line : Line</option>
+<option value="shape|897.0|394.0|90.0|43.0|#6z8UjZmGAqAKaSJS;wvg0jZmGAqAKaSUB|#6z8UjZmGAqAKaSJS;wvg0jZmGAqAKaSUB|wvg0jZmGAqAKaSUB" id="optionwvg0jZmGAqAKaSUB">$ 299.999
+ : Label</option>
+<option value="shape|700.0|438.0|242.0|24.0|#6z8UjZmGAqAKaSJS;Qvg0jZmGAqAKaST9|#6z8UjZmGAqAKaSJS;Qvg0jZmGAqAKaST9|Qvg0jZmGAqAKaST9" id="optionQvg0jZmGAqAKaST9">Tennis deportivos vans 
+ : Label</option>
+<option value="shape|702.0|394.0|188.0|18.0|#6z8UjZmGAqAKaSJS;Avg0jZmGAqAKaST5|#6z8UjZmGAqAKaSJS;Avg0jZmGAqAKaST5|Avg0jZmGAqAKaST5" id="optionAvg0jZmGAqAKaST5">Tennis deportivos nike 
+ : Label</option>
+<option value="shape|774.0|300.0|140.0|30.0|#6z8UjZmGAqAKaSJS;fPg0jZmGAqAKaST1|#6z8UjZmGAqAKaSJS;fPg0jZmGAqAKaST1|fPg0jZmGAqAKaST1" id="optionfPg0jZmGAqAKaST1">Total a pagar
+ : Label</option>
+<option value="shape|286.0|452.0|244.0|30.0|#6z8UjZmGAqAKaSJS;jg.0jZmGAqAKaSWU|#6z8UjZmGAqAKaSJS;jg.0jZmGAqAKaSWU|jg.0jZmGAqAKaSWU" id="optionjg.0jZmGAqAKaSWU">Tennis deportivos adidas 
+ : Label</option>
+<option value="shape|898.0|484.0|148.0|24.0|#6z8UjZmGAqAKaSJS;02R0jZmGAqAKaSWs|#6z8UjZmGAqAKaSJS;02R0jZmGAqAKaSWs|02R0jZmGAqAKaSWs" id="option02R0jZmGAqAKaSWs">$ 399.999
+ : Label</option>
+<option value="shape|894.0|438.0|156.0|26.0|#6z8UjZmGAqAKaSJS;E_g0jZmGAqAKaSUQ|#6z8UjZmGAqAKaSJS;E_g0jZmGAqAKaSUQ|E_g0jZmGAqAKaSUQ" id="optionE_g0jZmGAqAKaSUQ">$ 199.999
+ : Label</option>
+<option value="shape|721.0|605.0|324.0|108.0|#6z8UjZmGAqAKaSJS;rfg0jZmGAqAKaSUL|#6z8UjZmGAqAKaSJS;rfg0jZmGAqAKaSUL|rfg0jZmGAqAKaSUL" id="optionrfg0jZmGAqAKaSUL">Total a pagar $799.997 : Label</option>
+</select>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<span data-value="6z8UjZmGAqAKaSJS" style="display: none;" id="defaultState">
+		</span>
+		<span data-value="Web Wireframe - Mas productsos - lo a&#xf1;ade al carrito" style="display: none;" id="defaultPageTitleText">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram6z8UjZmGAqAKaSJS" src="../images/Mas_productsos_lo_aade_al_carrito.png" usemap="#diagram6z8UjZmGAqAKaSJS_map" class="Image" width="1054" height="774"/>
+					<map name="diagram6z8UjZmGAqAKaSJS_map">
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="721, 605, 1045, 713" coords2="721, 605, 1045, 713" shape="rect" alt="Total a pagar $799.997:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_rfg0jZmGAqAKaSUL" href="#6z8UjZmGAqAKaSJS;rfg0jZmGAqAKaSUL" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="894, 438, 1050, 464" coords2="894, 438, 1050, 464" shape="rect" alt="$ 199.999
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_E_g0jZmGAqAKaSUQ" href="#6z8UjZmGAqAKaSJS;E_g0jZmGAqAKaSUQ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="898, 484, 1046, 508" coords2="898, 484, 1046, 508" shape="rect" alt="$ 399.999
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_02R0jZmGAqAKaSWs" href="#6z8UjZmGAqAKaSJS;02R0jZmGAqAKaSWs" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="286, 452, 530, 482" coords2="286, 452, 530, 482" shape="rect" alt="Tennis deportivos adidas 
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_jg.0jZmGAqAKaSWU" href="#6z8UjZmGAqAKaSJS;jg.0jZmGAqAKaSWU" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="774, 300, 914, 330" coords2="774, 300, 914, 330" shape="rect" alt="Total a pagar
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_fPg0jZmGAqAKaST1" href="#6z8UjZmGAqAKaSJS;fPg0jZmGAqAKaST1" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="702, 394, 890, 412" coords2="702, 394, 890, 412" shape="rect" alt="Tennis deportivos nike 
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_Avg0jZmGAqAKaST5" href="#6z8UjZmGAqAKaSJS;Avg0jZmGAqAKaST5" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="700, 438, 942, 462" coords2="700, 438, 942, 462" shape="rect" alt="Tennis deportivos vans 
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_Qvg0jZmGAqAKaST9" href="#6z8UjZmGAqAKaSJS;Qvg0jZmGAqAKaST9" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="897, 394, 987, 437" coords2="897, 394, 987, 437" shape="rect" alt="$ 299.999
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_wvg0jZmGAqAKaSUB" href="#6z8UjZmGAqAKaSJS;wvg0jZmGAqAKaSUB" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="697, 567, 993, 577" coords2="697, 567, 993, 577" shape="rect" alt="Line:Line" id="areadiagram6z8UjZmGAqAKaSJS_map_WPg0jZmGAqAKaSTt" href="#6z8UjZmGAqAKaSJS;WPg0jZmGAqAKaSTt" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="700, 482, 898, 504" coords2="700, 482, 898, 504" shape="rect" alt="Tennis deportivos adidas 
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_SVKUjZmGAqAKaSKF" href="#6z8UjZmGAqAKaSJS;SVKUjZmGAqAKaSKF" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="694, 284, 994, 747" coords2="694, 284, 994, 747" shape="rect" alt="Rectangle:Rectangle" id="areadiagram6z8UjZmGAqAKaSJS_map_vPg0jZmGAqAKaSTz" href="#6z8UjZmGAqAKaSJS;vPg0jZmGAqAKaSTz" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="287, 367, 460, 397" coords2="287, 367, 460, 397" shape="rect" alt="$ 300.999
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_P3g0jZmGAqAKaSTo" href="#6z8UjZmGAqAKaSJS;P3g0jZmGAqAKaSTo" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="278, 698, 451, 728" coords2="278, 698, 451, 728" shape="rect" alt="$ 200.999
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_N3g0jZmGAqAKaSTj" href="#6z8UjZmGAqAKaSJS;N3g0jZmGAqAKaSTj" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="274, 658, 447, 688" coords2="274, 658, 447, 688" shape="rect" alt="Referencia 70_hl
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_O3g0jZmGAqAKaSTe" href="#6z8UjZmGAqAKaSJS;O3g0jZmGAqAKaSTe" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="268, 622, 491, 652" coords2="268, 622, 491, 652" shape="rect" alt="Tennis deportivos vans 
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_03g0jZmGAqAKaSTZ" href="#6z8UjZmGAqAKaSJS;03g0jZmGAqAKaSTZ" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="287, 327, 460, 357" coords2="287, 327, 460, 357" shape="rect" alt="Referencia 30_ca
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_HXg0jZmGAqAKaSTU" href="#6z8UjZmGAqAKaSJS;HXg0jZmGAqAKaSTU" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="287, 284, 507, 314" coords2="287, 284, 507, 314" shape="rect" alt="Tennis deportivos nike 
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_5Xg0jZmGAqAKaSTP" href="#6z8UjZmGAqAKaSJS;5Xg0jZmGAqAKaSTP" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" docContent="&amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body style=&amp;quot;margin-right:0;color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;&amp;quot;&amp;gt;
+    &amp;lt;p align=&amp;quot;center&amp;quot; style=&amp;quot;margin-right:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-top:0pt;text-align:center;&amp;quot;&amp;gt;
+      &amp;lt;font size=&amp;quot;16px&amp;quot; style=&amp;quot;font-size:16px;&amp;quot;&amp;gt;&amp;lt;b&amp;gt;KN-STORE&amp;lt;/b&amp;gt;&amp;lt;/font&amp;gt;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;" coords="467, 87, 617, 140" coords2="467, 87, 617, 140" shape="rect" alt="kn-store :Text Field" id="areadiagram6z8UjZmGAqAKaSJS_map_GXg0jZmGAqAKaSTL" href="#6z8UjZmGAqAKaSJS;GXg0jZmGAqAKaSTL" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="694, 187, 720, 217" coords2="694, 187, 720, 217" shape="rect" alt="Image:Image" id="areadiagram6z8UjZmGAqAKaSJS_map_Lng0jZmGAqAKaSTD" href="#6z8UjZmGAqAKaSJS;Lng0jZmGAqAKaSTD" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="337, 167, 743, 233" coords2="337, 167, 743, 233" shape="rect" alt="Carrito de compras:Text Field" id="areadiagram6z8UjZmGAqAKaSJS_map_IXg0jZmGAqAKaSTH" href="#6z8UjZmGAqAKaSJS;IXg0jZmGAqAKaSTH" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="137, 284, 267, 407" coords2="137, 284, 267, 407" shape="rect" alt="Image:Image" id="areadiagram6z8UjZmGAqAKaSJS_map_eng0jZmGAqAKaSS_" href="#6z8UjZmGAqAKaSJS;eng0jZmGAqAKaSS_" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="128, 624, 258, 747" coords2="128, 624, 258, 747" shape="rect" alt="Image:Image" id="areadiagram6z8UjZmGAqAKaSJS_map_wng0jZmGAqAKaSS7" href="#6z8UjZmGAqAKaSJS;wng0jZmGAqAKaSS7" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="284, 512, 457, 542" coords2="284, 512, 457, 542" shape="rect" alt="$ 300.999
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_r1KUjZmGAqAKaSKe" href="#6z8UjZmGAqAKaSJS;r1KUjZmGAqAKaSKe" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="284, 478, 497, 508" coords2="284, 478, 497, 508" shape="rect" alt="Referencia 86_kl
+:Label" id="areadiagram6z8UjZmGAqAKaSJS_map_tVKUjZmGAqAKaSKK" href="#6z8UjZmGAqAKaSJS;tVKUjZmGAqAKaSKK" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="138, 446, 268, 569" coords2="138, 446, 268, 569" shape="rect" alt="Image:Image" id="areadiagram6z8UjZmGAqAKaSJS_map_GlKUjZmGAqAKaSJ5" href="#6z8UjZmGAqAKaSJS;GlKUjZmGAqAKaSJ5" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram6z8UjZmGAqAKaSJS" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagram6z8UjZmGAqAKaSJS_map_7z8UjZmGAqAKaSJT" href="#6z8UjZmGAqAKaSJS;7z8UjZmGAqAKaSJT" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+	</p>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0" id="elements6z8UjZmGAqAKaSJS">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Display Text</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Browser.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Browser.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Web Browser : Browser</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;7z8UjZmGAqAKaSJT"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;GlKUjZmGAqAKaSJ5"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Referencia 86_kl<br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;tVKUjZmGAqAKaSKK"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">$ 300.999<br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;r1KUjZmGAqAKaSKe"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;wng0jZmGAqAKaSS7"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;eng0jZmGAqAKaSS_"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Carrito de compras : Text Field</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;IXg0jZmGAqAKaSTH"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;Lng0jZmGAqAKaSTD"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">kn-store  : Text Field</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;GXg0jZmGAqAKaSTL"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><head>
+    
+  </head>
+  <body style="margin-right:0;color:#000000;font-weight:normal;font-size:12px;margin-left:0;font-family:Dialog;">
+    <p align="center" style="margin-right:0pt;margin-bottom:.0001pt;margin-left:0pt;margin-top:0pt;text-align:center;">
+      <font size="16px" style="font-size:16px;"><b>KN-STORE</b></font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Tennis deportivos nike <br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;5Xg0jZmGAqAKaSTP"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Referencia 30_ca<br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;HXg0jZmGAqAKaSTU"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Tennis deportivos vans <br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;03g0jZmGAqAKaSTZ"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Referencia 70_hl<br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;O3g0jZmGAqAKaSTe"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">$ 200.999<br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;N3g0jZmGAqAKaSTj"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">$ 300.999<br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;P3g0jZmGAqAKaSTo"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/RoundedRectangle.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/RoundedRectangle.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Rectangle : Rectangle</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;vPg0jZmGAqAKaSTz"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Tennis deportivos adidas <br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;SVKUjZmGAqAKaSKF"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Line.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Line.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Line : Line</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;WPg0jZmGAqAKaSTt"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">$ 299.999<br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;wvg0jZmGAqAKaSUB"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Tennis deportivos vans <br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;Qvg0jZmGAqAKaST9"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Tennis deportivos nike <br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;Avg0jZmGAqAKaST5"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Total a pagar<br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;fPg0jZmGAqAKaST1"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Tennis deportivos adidas <br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;jg.0jZmGAqAKaSWU"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">$ 399.999<br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;02R0jZmGAqAKaSWs"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">$ 199.999<br> : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;E_g0jZmGAqAKaSUQ"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Label.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Label.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Total a pagar $799.997 : Label</span>				</span>
+<a name="6z8UjZmGAqAKaSJS;rfg0jZmGAqAKaSUL"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="width:370px; height:255px; position: fixed; _position: absolute; overflow: scroll; background-color: #F0F0F0; top: 100px; left: 100px; padding: 10px; display: none;" id="wireframeStatesDialog">
+		<span data-value="Web Wireframe - Mas productsos - lo a&#xf1;ade al carrito" style="display: none;" id="pageTitleText6z8UjZmGAqAKaSJS">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 30; top: 30; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShape6z8UjZmGAqAKaSJS', 'diagram6z8UjZmGAqAKaSJS', 'none', 'elements6z8UjZmGAqAKaSJS', 'PageTitleText', 'pageTitleText6z8UjZmGAqAKaSJS')"><img src="../images/Mas_productsos_lo_aade_al_carrito_preview.png" class="Image" style=" width: 272; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShape6z8UjZmGAqAKaSJS', 'diagram6z8UjZmGAqAKaSJS', 'none', 'elements6z8UjZmGAqAKaSJS', 'PageTitleText', 'pageTitleText6z8UjZmGAqAKaSJS')"><span style="color: black !important" class="TableContent ItemLink">lo añade al carrito</span></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		KN-STORE	</div>
+</body>
+</html>

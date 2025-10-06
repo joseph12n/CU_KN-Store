@@ -1,0 +1,653 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Web Wireframe - agregar prod</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initWireframeDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		KN-STORE	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Web Wireframe - agregar prod		</span>
+<a onclick="javascript: showVpLink('KN-STORE.vpp://diagram/giNUDZmGAqACJh7.', 'agregar prod\nKN-STORE.vpp://diagram/giNUDZmGAqACJh7.', 'agregar prod', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="auto" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;">
+			<tr>
+				<td>
+<a href="javascript:showWireframeStatesDialog()"><span class="TableContent ItemLink">Show State Overview</span></a>				</td>
+				<td width="10px">
+				</td>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" id="selectShapeIiNUDZmGAqACJh8A">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagramIiNUDZmGAqACJh8A', this.value);hideLinkPopup();showSpotLight('diagramIiNUDZmGAqACJh8A', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#IiNUDZmGAqACJh8A;JiNUDZmGAqACJh8B|#IiNUDZmGAqACJh8A;JiNUDZmGAqACJh8B|JiNUDZmGAqACJh8B" id="optionJiNUDZmGAqACJh8B">Web Browser : Browser</option>
+<option value="shape|69.0|107.0|743.0|44.0|#IiNUDZmGAqACJh8A;0KtUDZmGAqACJh8e|#IiNUDZmGAqACJh8A;0KtUDZmGAqACJh8e|0KtUDZmGAqACJh8e" id="option0KtUDZmGAqACJh8e">Breadcrumb : Breadcrumb</option>
+<option value="shape|818.0|113.0|100.0|30.0|#IiNUDZmGAqACJh8A;aKtUDZmGAqACJh8u|#IiNUDZmGAqACJh8A;aKtUDZmGAqACJh8u|aKtUDZmGAqACJh8u" id="optionaKtUDZmGAqACJh8u">Rol Prov : Button</option>
+<option value="shape|69.0|202.0|622.0|30.0|#IiNUDZmGAqACJh8A;uKtUDZmGAqACJh8y|#IiNUDZmGAqACJh8A;uKtUDZmGAqACJh8y|uKtUDZmGAqACJh8y" id="optionuKtUDZmGAqACJh8y">Buscar Producto : Text Field</option>
+<option value="shape|698.0|196.0|135.0|44.0|#IiNUDZmGAqACJh8A;JKtUDZmGAqACJh82|#IiNUDZmGAqACJh8A;JKtUDZmGAqACJh82|JKtUDZmGAqACJh82" id="optionJKtUDZmGAqACJh82">Dropdown : Dropdown</option>
+<option value="shape|846.0|202.0|140.0|30.0|#IiNUDZmGAqACJh8A;1KtUDZmGAqACJh87|#IiNUDZmGAqACJh8A;1KtUDZmGAqACJh87|1KtUDZmGAqACJh87" id="option1KtUDZmGAqACJh87">Crear/Modif/Eliminar : Button</option>
+<option value="shape|66.0|318.0|882.0|225.0|#IiNUDZmGAqACJh8A;_KtUDZmGAqACJh9H|#IiNUDZmGAqACJh8A;_KtUDZmGAqACJh9H|_KtUDZmGAqACJh9H" id="option_KtUDZmGAqACJh9H">Panel : Panel</option>
+<option value="shape|458.0|327.0|113.0|30.0|#IiNUDZmGAqACJh8A;HKtUDZmGAqACJh9D|#IiNUDZmGAqACJh8A;HKtUDZmGAqACJh9D|HKtUDZmGAqACJh9D" id="optionHKtUDZmGAqACJh9D">Crear Producto : Text Field</option>
+<option value="shape|87.0|363.0|154.0|30.0|#IiNUDZmGAqACJh8A;kqtUDZmGAqACJh95|#IiNUDZmGAqACJh8A;kqtUDZmGAqACJh95|kqtUDZmGAqACJh95" id="optionkqtUDZmGAqACJh95">Nombre del producto : Text Field</option>
+<option value="shape|846.0|349.0|80.0|44.0|#IiNUDZmGAqACJh8A;EqtUDZmGAqACJh9z|#IiNUDZmGAqACJh8A;EqtUDZmGAqACJh9z|EqtUDZmGAqACJh9z" id="optionEqtUDZmGAqACJh9z">Dropdown : Dropdown</option>
+<option value="shape|87.0|478.0|76.0|30.0|#IiNUDZmGAqACJh8A;4qtUDZmGAqACJh9w|#IiNUDZmGAqACJh8A;4qtUDZmGAqACJh9w|4qtUDZmGAqACJh9w" id="option4qtUDZmGAqACJh9w">Unid Disp : Text Field</option>
+<option value="shape|318.0|440.0|130.0|30.0|#IiNUDZmGAqACJh8A;4qtUDZmGAqACJh9t|#IiNUDZmGAqACJh8A;4qtUDZmGAqACJh9t|4qtUDZmGAqACJh9t" id="option4qtUDZmGAqACJh9t">Marca del producto : Text Field</option>
+<option value="shape|87.0|401.0|60.0|30.0|#IiNUDZmGAqACJh8A;oqtUDZmGAqACJh9q|#IiNUDZmGAqACJh8A;oqtUDZmGAqACJh9q|oqtUDZmGAqACJh9q" id="optionoqtUDZmGAqACJh9q">Genero : Text Field</option>
+<option value="shape|87.0|440.0|78.0|30.0|#IiNUDZmGAqACJh8A;oqtUDZmGAqACJh9n|#IiNUDZmGAqACJh8A;oqtUDZmGAqACJh9n|oqtUDZmGAqACJh9n" id="optionoqtUDZmGAqACJh9n">Tallas Disp : Text Field</option>
+<option value="shape|318.0|363.0|64.0|30.0|#IiNUDZmGAqACJh8A;IqtUDZmGAqACJh9k|#IiNUDZmGAqACJh8A;IqtUDZmGAqACJh9k|IqtUDZmGAqACJh9k" id="optionIqtUDZmGAqACJh9k">Material : Text Field</option>
+<option value="shape|318.0|401.0|91.0|30.0|#IiNUDZmGAqACJh8A;wqtUDZmGAqACJh9h|#IiNUDZmGAqACJh8A;wqtUDZmGAqACJh9h|wqtUDZmGAqACJh9h" id="optionwqtUDZmGAqACJh9h">Colores Disp : Text Field</option>
+<option value="shape|318.0|478.0|75.0|30.0|#IiNUDZmGAqACJh8A;wqtUDZmGAqACJh9e|#IiNUDZmGAqACJh8A;wqtUDZmGAqACJh9e|wqtUDZmGAqACJh9e" id="optionwqtUDZmGAqACJh9e">Precio Uni : Text Field</option>
+<option value="shape|544.0|363.0|100.0|30.0|#IiNUDZmGAqACJh8A;QqtUDZmGAqACJh9b|#IiNUDZmGAqACJh8A;QqtUDZmGAqACJh9b|QqtUDZmGAqACJh9b" id="optionQqtUDZmGAqACJh9b">Precio Desc : Text Field</option>
+<option value="shape|544.0|401.0|135.0|30.0|#IiNUDZmGAqACJh8A;QqtUDZmGAqACJh9Y|#IiNUDZmGAqACJh8A;QqtUDZmGAqACJh9Y|QqtUDZmGAqACJh9Y" id="optionQqtUDZmGAqACJh9Y">Stock Talla y Color : Text Field</option>
+<option value="shape|544.0|440.0|100.0|30.0|#IiNUDZmGAqACJh8A;gqtUDZmGAqACJh9V|#IiNUDZmGAqACJh8A;gqtUDZmGAqACJh9V|gqtUDZmGAqACJh9V" id="optiongqtUDZmGAqACJh9V">Cod Refe : Text Field</option>
+<option value="shape|544.0|479.0|100.0|30.0|#IiNUDZmGAqACJh8A;gqtUDZmGAqACJh9S|#IiNUDZmGAqACJh8A;gqtUDZmGAqACJh9S|gqtUDZmGAqACJh9S" id="optiongqtUDZmGAqACJh9S">Cod Barras : Text Field</option>
+<option value="shape|712.0|363.0|102.0|30.0|#IiNUDZmGAqACJh8A;gqtUDZmGAqACJh9P|#IiNUDZmGAqACJh8A;gqtUDZmGAqACJh9P|gqtUDZmGAqACJh9P" id="optiongqtUDZmGAqACJh9P">Agregar Foto : Text Field</option>
+<option value="shape|734.0|499.0|100.0|30.0|#IiNUDZmGAqACJh8A;AqtUDZmGAqACJh9M|#IiNUDZmGAqACJh8A;AqtUDZmGAqACJh9M|AqtUDZmGAqACJh9M" id="optionAqtUDZmGAqACJh9M">Cancelar : Button</option>
+<option value="shape|836.0|499.0|100.0|30.0|#IiNUDZmGAqACJh8A;_KtUDZmGAqACJh9J|#IiNUDZmGAqACJh8A;_KtUDZmGAqACJh9J|_KtUDZmGAqACJh9J" id="option_KtUDZmGAqACJh9J">Crear : Button</option>
+<option value="shape|866.0|149.0|297.0|65.0|#IiNUDZmGAqACJh8A;DKtUDZmGAqACJh8_|#IiNUDZmGAqACJh8A;DKtUDZmGAqACJh8_|DKtUDZmGAqACJh8_" id="optionDKtUDZmGAqACJh8_">Boton Crear : Annotation</option>
+<option value="shape|525.0|265.0|674.0|67.0|#IiNUDZmGAqACJh8A;HatUDZmGAqACJh.O|#IiNUDZmGAqACJh8A;HatUDZmGAqACJh.O|HatUDZmGAqACJh.O" id="optionHatUDZmGAqACJh.O">Ventana para crear
+productos
+ : Annotation</option>
+</select>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<span data-value="IiNUDZmGAqACJh8A" style="display: none;" id="defaultState">
+		</span>
+		<span data-value="Web Wireframe - agregar prod - opcion=&#x22;Agregar producto&#x22;" style="display: none;" id="defaultPageTitleText">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagramIiNUDZmGAqACJh8A" src="../images/agregar_prod_opcionAgregar_producto.png" usemap="#diagramIiNUDZmGAqACJh8A_map" class="Image" width="1203" height="774"/>
+					<map name="diagramIiNUDZmGAqACJh8A_map">
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="525, 265, 1199, 332" coords2="525, 265, 1199, 332" shape="rect" alt="Ventana para crear
+productos
+:Annotation" id="areadiagramIiNUDZmGAqACJh8A_map_HatUDZmGAqACJh.O" href="#IiNUDZmGAqACJh8A;HatUDZmGAqACJh.O" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="866, 149, 1163, 214" coords2="866, 149, 1163, 214" shape="rect" alt="Boton Crear:Annotation" id="areadiagramIiNUDZmGAqACJh8A_map_DKtUDZmGAqACJh8_" href="#IiNUDZmGAqACJh8A;DKtUDZmGAqACJh8_" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="836, 499, 936, 529" coords2="836, 499, 936, 529" shape="rect" alt="Crear:Button" id="areadiagramIiNUDZmGAqACJh8A_map__KtUDZmGAqACJh9J" href="#IiNUDZmGAqACJh8A;_KtUDZmGAqACJh9J" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="734, 499, 834, 529" coords2="734, 499, 834, 529" shape="rect" alt="Cancelar:Button" id="areadiagramIiNUDZmGAqACJh8A_map_AqtUDZmGAqACJh9M" href="#IiNUDZmGAqACJh8A;AqtUDZmGAqACJh9M" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="712, 363, 814, 393" coords2="712, 363, 814, 393" shape="rect" alt="Agregar Foto:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_gqtUDZmGAqACJh9P" href="#IiNUDZmGAqACJh8A;gqtUDZmGAqACJh9P" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="544, 479, 644, 509" coords2="544, 479, 644, 509" shape="rect" alt="Cod Barras:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_gqtUDZmGAqACJh9S" href="#IiNUDZmGAqACJh8A;gqtUDZmGAqACJh9S" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="544, 440, 644, 470" coords2="544, 440, 644, 470" shape="rect" alt="Cod Refe:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_gqtUDZmGAqACJh9V" href="#IiNUDZmGAqACJh8A;gqtUDZmGAqACJh9V" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="544, 401, 679, 431" coords2="544, 401, 679, 431" shape="rect" alt="Stock Talla y Color:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_QqtUDZmGAqACJh9Y" href="#IiNUDZmGAqACJh8A;QqtUDZmGAqACJh9Y" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="544, 363, 644, 393" coords2="544, 363, 644, 393" shape="rect" alt="Precio Desc:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_QqtUDZmGAqACJh9b" href="#IiNUDZmGAqACJh8A;QqtUDZmGAqACJh9b" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="318, 478, 393, 508" coords2="318, 478, 393, 508" shape="rect" alt="Precio Uni:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_wqtUDZmGAqACJh9e" href="#IiNUDZmGAqACJh8A;wqtUDZmGAqACJh9e" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="318, 401, 409, 431" coords2="318, 401, 409, 431" shape="rect" alt="Colores Disp:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_wqtUDZmGAqACJh9h" href="#IiNUDZmGAqACJh8A;wqtUDZmGAqACJh9h" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="318, 363, 382, 393" coords2="318, 363, 382, 393" shape="rect" alt="Material:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_IqtUDZmGAqACJh9k" href="#IiNUDZmGAqACJh8A;IqtUDZmGAqACJh9k" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="87, 440, 165, 470" coords2="87, 440, 165, 470" shape="rect" alt="Tallas Disp:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_oqtUDZmGAqACJh9n" href="#IiNUDZmGAqACJh8A;oqtUDZmGAqACJh9n" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="87, 401, 147, 431" coords2="87, 401, 147, 431" shape="rect" alt="Genero:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_oqtUDZmGAqACJh9q" href="#IiNUDZmGAqACJh8A;oqtUDZmGAqACJh9q" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="318, 440, 448, 470" coords2="318, 440, 448, 470" shape="rect" alt="Marca del producto:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_4qtUDZmGAqACJh9t" href="#IiNUDZmGAqACJh8A;4qtUDZmGAqACJh9t" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="87, 478, 163, 508" coords2="87, 478, 163, 508" shape="rect" alt="Unid Disp:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_4qtUDZmGAqACJh9w" href="#IiNUDZmGAqACJh8A;4qtUDZmGAqACJh9w" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="846, 349, 926, 393" coords2="846, 349, 926, 393" shape="rect" alt="Dropdown:Dropdown" id="areadiagramIiNUDZmGAqACJh8A_map_EqtUDZmGAqACJh9z" href="#IiNUDZmGAqACJh8A;EqtUDZmGAqACJh9z" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="87, 363, 241, 393" coords2="87, 363, 241, 393" shape="rect" alt="Nombre del producto:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_kqtUDZmGAqACJh95" href="#IiNUDZmGAqACJh8A;kqtUDZmGAqACJh95" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="458, 327, 571, 357" coords2="458, 327, 571, 357" shape="rect" alt="Crear Producto:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_HKtUDZmGAqACJh9D" href="#IiNUDZmGAqACJh8A;HKtUDZmGAqACJh9D" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="66, 318, 948, 543" coords2="66, 318, 948, 543" shape="rect" alt="Panel:Panel" id="areadiagramIiNUDZmGAqACJh8A_map__KtUDZmGAqACJh9H" href="#IiNUDZmGAqACJh8A;_KtUDZmGAqACJh9H" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="846, 202, 986, 232" coords2="846, 202, 986, 232" shape="rect" alt="Crear/Modif/Eliminar:Button" id="areadiagramIiNUDZmGAqACJh8A_map_1KtUDZmGAqACJh87" href="#IiNUDZmGAqACJh8A;1KtUDZmGAqACJh87" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="698, 196, 833, 240" coords2="698, 196, 833, 240" shape="rect" alt="Dropdown:Dropdown" id="areadiagramIiNUDZmGAqACJh8A_map_JKtUDZmGAqACJh82" href="#IiNUDZmGAqACJh8A;JKtUDZmGAqACJh82" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="69, 202, 691, 232" coords2="69, 202, 691, 232" shape="rect" alt="Buscar Producto:Text Field" id="areadiagramIiNUDZmGAqACJh8A_map_uKtUDZmGAqACJh8y" href="#IiNUDZmGAqACJh8A;uKtUDZmGAqACJh8y" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="818, 113, 918, 143" coords2="818, 113, 918, 143" shape="rect" alt="Rol Prov:Button" id="areadiagramIiNUDZmGAqACJh8A_map_aKtUDZmGAqACJh8u" href="#IiNUDZmGAqACJh8A;aKtUDZmGAqACJh8u" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="69, 107, 812, 151" coords2="69, 107, 812, 151" shape="rect" alt="Breadcrumb:Breadcrumb" id="areadiagramIiNUDZmGAqACJh8A_map_0KtUDZmGAqACJh8e" href="#IiNUDZmGAqACJh8A;0KtUDZmGAqACJh8e" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramIiNUDZmGAqACJh8A" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagramIiNUDZmGAqACJh8A_map_JiNUDZmGAqACJh8B" href="#IiNUDZmGAqACJh8A;JiNUDZmGAqACJh8B" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+	</p>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0" id="elementsIiNUDZmGAqACJh8A">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Display Text</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Browser.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Browser.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Web Browser : Browser</span>				</span>
+<a name="IiNUDZmGAqACJh8A;JiNUDZmGAqACJh8B"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Breadcrumb.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Breadcrumb.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Breadcrumb : Breadcrumb</span>				</span>
+<a name="IiNUDZmGAqACJh8A;0KtUDZmGAqACJh8e"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Rol Prov : Button</span>				</span>
+<a name="IiNUDZmGAqACJh8A;aKtUDZmGAqACJh8u"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Buscar Producto : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;uKtUDZmGAqACJh8y"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Dropdown.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Dropdown.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Dropdown : Dropdown</span>				</span>
+<a name="IiNUDZmGAqACJh8A;JKtUDZmGAqACJh82"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Crear/Modif/Eliminar : Button</span>				</span>
+<a name="IiNUDZmGAqACJh8A;1KtUDZmGAqACJh87"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Panel.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Panel.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Panel : Panel</span>				</span>
+<a name="IiNUDZmGAqACJh8A;_KtUDZmGAqACJh9H"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Crear Producto : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;HKtUDZmGAqACJh9D"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Nombre del producto : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;kqtUDZmGAqACJh95"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Dropdown.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Dropdown.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Dropdown : Dropdown</span>				</span>
+<a name="IiNUDZmGAqACJh8A;EqtUDZmGAqACJh9z"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Unid Disp : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;4qtUDZmGAqACJh9w"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Marca del producto : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;4qtUDZmGAqACJh9t"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Genero : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;oqtUDZmGAqACJh9q"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Tallas Disp : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;oqtUDZmGAqACJh9n"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Material : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;IqtUDZmGAqACJh9k"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Colores Disp : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;wqtUDZmGAqACJh9h"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Precio Uni : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;wqtUDZmGAqACJh9e"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Precio Desc : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;QqtUDZmGAqACJh9b"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Stock Talla y Color : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;QqtUDZmGAqACJh9Y"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Cod Refe : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;gqtUDZmGAqACJh9V"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Cod Barras : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;gqtUDZmGAqACJh9S"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Agregar Foto : Text Field</span>				</span>
+<a name="IiNUDZmGAqACJh8A;gqtUDZmGAqACJh9P"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Cancelar : Button</span>				</span>
+<a name="IiNUDZmGAqACJh8A;AqtUDZmGAqACJh9M"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Crear : Button</span>				</span>
+<a name="IiNUDZmGAqACJh8A;_KtUDZmGAqACJh9J"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Annotation.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Annotation.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Boton Crear : Annotation</span>				</span>
+<a name="IiNUDZmGAqACJh8A;DKtUDZmGAqACJh8_"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Annotation.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Annotation.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Ventana para crear<br>productos<br> : Annotation</span>				</span>
+<a name="IiNUDZmGAqACJh8A;HatUDZmGAqACJh.O"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="width:370px; height:255px; position: fixed; _position: absolute; overflow: scroll; background-color: #F0F0F0; top: 100px; left: 100px; padding: 10px; display: none;" id="wireframeStatesDialog">
+		<span data-value="Web Wireframe - agregar prod - opcion=&#x22;Agregar producto&#x22;" style="display: none;" id="pageTitleTextIiNUDZmGAqACJh8A">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 30; top: 30; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeIiNUDZmGAqACJh8A', 'diagramIiNUDZmGAqACJh8A', 'none', 'elementsIiNUDZmGAqACJh8A', 'PageTitleText', 'pageTitleTextIiNUDZmGAqACJh8A')"><img src="../images/agregar_prod_opcionAgregar_producto_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeIiNUDZmGAqACJh8A', 'diagramIiNUDZmGAqACJh8A', 'none', 'elementsIiNUDZmGAqACJh8A', 'PageTitleText', 'pageTitleTextIiNUDZmGAqACJh8A')"><span style="color: black !important" class="TableContent ItemLink">opcion="Agregar producto"</span></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		KN-STORE	</div>
+</body>
+</html>

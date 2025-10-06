@@ -1,0 +1,691 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Web Wireframe - delect prod</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initWireframeDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		KN-STORE	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Web Wireframe - delect prod		</span>
+<a onclick="javascript: showVpLink('KN-STORE.vpp://diagram/5hPUDZmGAqACJiDO', 'delect prod\nKN-STORE.vpp://diagram/5hPUDZmGAqACJiDO', 'delect prod', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="auto" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;">
+			<tr>
+				<td>
+<a href="javascript:showWireframeStatesDialog()"><span class="TableContent ItemLink">Show State Overview</span></a>				</td>
+				<td width="10px">
+				</td>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0" id="selectShapeVhPUDZmGAqACJiDQ">
+						<tr>
+							<td>
+<span class="TableContent">Jump to:</span>								<select class="TableContent" onChange="scrollWin('diagramVhPUDZmGAqACJiDQ', this.value);hideLinkPopup();showSpotLight('diagramVhPUDZmGAqACJiDQ', this.value)">
+<option value="">Please select an element</option>
+<option value="shape|2.0|2.0|1024.0|768.0|#VhPUDZmGAqACJiDQ;XhPUDZmGAqACJiDR|#VhPUDZmGAqACJiDQ;XhPUDZmGAqACJiDR|XhPUDZmGAqACJiDR" id="optionXhPUDZmGAqACJiDR">Web Browser : Browser</option>
+<option value="shape|72.0|122.0|875.0|387.0|#VhPUDZmGAqACJiDQ;W9w0DZmGAqACJiGM|#VhPUDZmGAqACJiDQ;W9w0DZmGAqACJiGM|W9w0DZmGAqACJiGM" id="optionW9w0DZmGAqACJiGM">Panel : Panel</option>
+<option value="shape|818.0|421.0|100.0|30.0|#VhPUDZmGAqACJiDQ;K9w0DZmGAqACJiGI|#VhPUDZmGAqACJiDQ;K9w0DZmGAqACJiGI|K9w0DZmGAqACJiGI" id="optionK9w0DZmGAqACJiGI">ELIMINAR : Button</option>
+<option value="shape|707.0|421.0|100.0|30.0|#VhPUDZmGAqACJiDQ;p9w0DZmGAqACJiG7|#VhPUDZmGAqACJiDQ;p9w0DZmGAqACJiG7|p9w0DZmGAqACJiG7" id="optionp9w0DZmGAqACJiG7">EDIT : Button</option>
+<option value="shape|211.0|421.0|477.0|30.0|#VhPUDZmGAqACJiDQ;J9w0DZmGAqACJiG4|#VhPUDZmGAqACJiDQ;J9w0DZmGAqACJiG4|J9w0DZmGAqACJiG4" id="optionJ9w0DZmGAqACJiG4">NOMBRE PRODUCTO : Text Field</option>
+<option value="shape|94.0|406.0|105.0|60.0|#VhPUDZmGAqACJiDQ;x9w0DZmGAqACJiG1|#VhPUDZmGAqACJiDQ;x9w0DZmGAqACJiG1|x9w0DZmGAqACJiG1" id="optionx9w0DZmGAqACJiG1">Image : Image</option>
+<option value="shape|818.0|348.0|100.0|30.0|#VhPUDZmGAqACJiDQ;R9w0DZmGAqACJiGy|#VhPUDZmGAqACJiDQ;R9w0DZmGAqACJiGy|R9w0DZmGAqACJiGy" id="optionR9w0DZmGAqACJiGy">ELIMINAR : Button</option>
+<option value="shape|707.0|348.0|100.0|30.0|#VhPUDZmGAqACJiDQ;R9w0DZmGAqACJiGv|#VhPUDZmGAqACJiDQ;R9w0DZmGAqACJiGv|R9w0DZmGAqACJiGv" id="optionR9w0DZmGAqACJiGv">EDIT : Button</option>
+<option value="shape|211.0|348.0|477.0|30.0|#VhPUDZmGAqACJiDQ;h9w0DZmGAqACJiGs|#VhPUDZmGAqACJiDQ;h9w0DZmGAqACJiGs|h9w0DZmGAqACJiGs" id="optionh9w0DZmGAqACJiGs">NOMBRE PRODUCTO : Text Field</option>
+<option value="shape|94.0|333.0|105.0|60.0|#VhPUDZmGAqACJiDQ;h9w0DZmGAqACJiGp|#VhPUDZmGAqACJiDQ;h9w0DZmGAqACJiGp|h9w0DZmGAqACJiGp" id="optionh9w0DZmGAqACJiGp">Image : Image</option>
+<option value="shape|818.0|281.0|100.0|30.0|#VhPUDZmGAqACJiDQ;B9w0DZmGAqACJiGm|#VhPUDZmGAqACJiDQ;B9w0DZmGAqACJiGm|B9w0DZmGAqACJiGm" id="optionB9w0DZmGAqACJiGm">ELIMINAR : Button</option>
+<option value="shape|707.0|281.0|100.0|30.0|#VhPUDZmGAqACJiDQ;.9w0DZmGAqACJiGj|#VhPUDZmGAqACJiDQ;.9w0DZmGAqACJiGj|.9w0DZmGAqACJiGj" id="option.9w0DZmGAqACJiGj">EDIT : Button</option>
+<option value="shape|211.0|281.0|477.0|30.0|#VhPUDZmGAqACJiDQ;.9w0DZmGAqACJiGg|#VhPUDZmGAqACJiDQ;.9w0DZmGAqACJiGg|.9w0DZmGAqACJiGg" id="option.9w0DZmGAqACJiGg">NOMBRE PRODUCTO : Text Field</option>
+<option value="shape|94.0|266.0|105.0|60.0|#VhPUDZmGAqACJiDQ;e9w0DZmGAqACJiGd|#VhPUDZmGAqACJiDQ;e9w0DZmGAqACJiGd|e9w0DZmGAqACJiGd" id="optione9w0DZmGAqACJiGd">Image : Image</option>
+<option value="shape|818.0|214.0|100.0|30.0|#VhPUDZmGAqACJiDQ;u9w0DZmGAqACJiGa|#VhPUDZmGAqACJiDQ;u9w0DZmGAqACJiGa|u9w0DZmGAqACJiGa" id="optionu9w0DZmGAqACJiGa">ELIMINAR : Button</option>
+<option value="shape|707.0|214.0|100.0|30.0|#VhPUDZmGAqACJiDQ;u9w0DZmGAqACJiGX|#VhPUDZmGAqACJiDQ;u9w0DZmGAqACJiGX|u9w0DZmGAqACJiGX" id="optionu9w0DZmGAqACJiGX">EDIT : Button</option>
+<option value="shape|211.0|214.0|477.0|30.0|#VhPUDZmGAqACJiDQ;u9w0DZmGAqACJiGU|#VhPUDZmGAqACJiDQ;u9w0DZmGAqACJiGU|u9w0DZmGAqACJiGU" id="optionu9w0DZmGAqACJiGU">NOMBRE PRODUCTO : Text Field</option>
+<option value="shape|94.0|199.0|105.0|60.0|#VhPUDZmGAqACJiDQ;O9w0DZmGAqACJiGR|#VhPUDZmGAqACJiDQ;O9w0DZmGAqACJiGR|O9w0DZmGAqACJiGR" id="optionO9w0DZmGAqACJiGR">Image : Image</option>
+<option value="shape|90.0|136.0|815.0|30.0|#VhPUDZmGAqACJiDQ;W9w0DZmGAqACJiGO|#VhPUDZmGAqACJiDQ;W9w0DZmGAqACJiGO|W9w0DZmGAqACJiGO" id="optionW9w0DZmGAqACJiGO">BUSCAR PRODUCTOS : Text Field</option>
+<option value="shape|69.0|527.0|878.0|84.0|#VhPUDZmGAqACJiDQ;G9c0DZmGAqACJiHn|#VhPUDZmGAqACJiDQ;G9c0DZmGAqACJiHn|G9c0DZmGAqACJiHn" id="optionG9c0DZmGAqACJiHn">Panel : Panel</option>
+<option value="shape|307.0|534.0|431.0|30.0|#VhPUDZmGAqACJiDQ;7Zi0DZmGAqACJiHw|#VhPUDZmGAqACJiDQ;7Zi0DZmGAqACJiHw|7Zi0DZmGAqACJiHw" id="option7Zi0DZmGAqACJiHw">¿ESTAS SEGURO QUE QUIERES ELIMINAR EL PRODUCTO? : Text Field</option>
+<option value="shape|514.0|571.0|100.0|30.0|#VhPUDZmGAqACJiDQ;ImB0DZmGAqACJiId|#VhPUDZmGAqACJiDQ;ImB0DZmGAqACJiId|ImB0DZmGAqACJiId" id="optionImB0DZmGAqACJiId">ACEPTAR : Button</option>
+<option value="shape|422.0|571.0|78.0|30.0|#VhPUDZmGAqACJiDQ;YTR0DZmGAqACJiI7|#VhPUDZmGAqACJiDQ;YTR0DZmGAqACJiI7|YTR0DZmGAqACJiI7" id="optionYTR0DZmGAqACJiI7">CANCELAR : Button</option>
+<option value="shape|67.0|656.0|880.0|78.0|#VhPUDZmGAqACJiDQ;4at0DZmGAqACJiJT|#VhPUDZmGAqACJiDQ;4at0DZmGAqACJiJT|4at0DZmGAqACJiJT" id="option4at0DZmGAqACJiJT">Panel : Panel</option>
+<option value="shape|387.0|680.0|270.0|30.0|#VhPUDZmGAqACJiDQ;Gld0DZmGAqACJiJc|#VhPUDZmGAqACJiDQ;Gld0DZmGAqACJiJc|Gld0DZmGAqACJiJc" id="optionGld0DZmGAqACJiJc">PRODUCTO ELIMINADO CON EXITO : Text Field</option>
+<option value="shape|913.0|196.0|450.0|83.0|#VhPUDZmGAqACJiDQ;0HI0DZmGAqACJiHY|#VhPUDZmGAqACJiDQ;0HI0DZmGAqACJiHY|0HI0DZmGAqACJiHY" id="option0HI0DZmGAqACJiHY">Para eliminar productos, debe de 
+darse click en el boton "Eliminar" , luego
+le saldra una advertencia
+ : Annotation</option>
+<option value="shape|744.0|510.0|546.0|60.0|#VhPUDZmGAqACJiDQ;efZ0DZmGAqACJiJK|#VhPUDZmGAqACJiDQ;efZ0DZmGAqACJiJK|efZ0DZmGAqACJiJK" id="optionefZ0DZmGAqACJiJK">Alerta para eliminar productos
+ : Annotation</option>
+<option value="shape|744.0|686.0|680.0|48.0|#VhPUDZmGAqACJiDQ;QR70DZmGAqACJiJn|#VhPUDZmGAqACJiDQ;QR70DZmGAqACJiJn|QR70DZmGAqACJiJn" id="optionQR70DZmGAqACJiJn">Este anuncio durara 3 segundos y luego se desaparecera
+ : Annotation</option>
+</select>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<span data-value="VhPUDZmGAqACJiDQ" style="display: none;" id="defaultState">
+		</span>
+		<span data-value="Web Wireframe - delect prod - opcion= &#x22;eliminar producto&#x22;" style="display: none;" id="defaultPageTitleText">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagramVhPUDZmGAqACJiDQ" src="../images/delect_prod_opcion_eliminar_producto.png" usemap="#diagramVhPUDZmGAqACJiDQ_map" class="Image" width="1428" height="774"/>
+					<map name="diagramVhPUDZmGAqACJiDQ_map">
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="744, 686, 1424, 734" coords2="744, 686, 1424, 734" shape="rect" alt="Este anuncio durara 3 segundos y luego se desaparecera
+:Annotation" id="areadiagramVhPUDZmGAqACJiDQ_map_QR70DZmGAqACJiJn" href="#VhPUDZmGAqACJiDQ;QR70DZmGAqACJiJn" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="744, 510, 1290, 570" coords2="744, 510, 1290, 570" shape="rect" alt="Alerta para eliminar productos
+:Annotation" id="areadiagramVhPUDZmGAqACJiDQ_map_efZ0DZmGAqACJiJK" href="#VhPUDZmGAqACJiDQ;efZ0DZmGAqACJiJK" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="913, 196, 1363, 279" coords2="913, 196, 1363, 279" shape="rect" alt="Para eliminar productos, debe de 
+darse click en el boton "Eliminar" , luego
+le saldra una advertencia
+:Annotation" id="areadiagramVhPUDZmGAqACJiDQ_map_0HI0DZmGAqACJiHY" href="#VhPUDZmGAqACJiDQ;0HI0DZmGAqACJiHY" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="387, 680, 657, 710" coords2="387, 680, 657, 710" shape="rect" alt="PRODUCTO ELIMINADO CON EXITO:Text Field" id="areadiagramVhPUDZmGAqACJiDQ_map_Gld0DZmGAqACJiJc" href="#VhPUDZmGAqACJiDQ;Gld0DZmGAqACJiJc" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="67, 656, 947, 734" coords2="67, 656, 947, 734" shape="rect" alt="Panel:Panel" id="areadiagramVhPUDZmGAqACJiDQ_map_4at0DZmGAqACJiJT" href="#VhPUDZmGAqACJiDQ;4at0DZmGAqACJiJT" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="422, 571, 500, 601" coords2="422, 571, 500, 601" shape="rect" alt="CANCELAR:Button" id="areadiagramVhPUDZmGAqACJiDQ_map_YTR0DZmGAqACJiI7" href="#VhPUDZmGAqACJiDQ;YTR0DZmGAqACJiI7" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="514, 571, 614, 601" coords2="514, 571, 614, 601" shape="rect" alt="ACEPTAR:Button" id="areadiagramVhPUDZmGAqACJiDQ_map_ImB0DZmGAqACJiId" href="#VhPUDZmGAqACJiDQ;ImB0DZmGAqACJiId" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="307, 534, 738, 564" coords2="307, 534, 738, 564" shape="rect" alt="¿ESTAS SEGURO QUE QUIERES ELIMINAR EL PRODUCTO?:Text Field" id="areadiagramVhPUDZmGAqACJiDQ_map_7Zi0DZmGAqACJiHw" href="#VhPUDZmGAqACJiDQ;7Zi0DZmGAqACJiHw" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="69, 527, 947, 611" coords2="69, 527, 947, 611" shape="rect" alt="Panel:Panel" id="areadiagramVhPUDZmGAqACJiDQ_map_G9c0DZmGAqACJiHn" href="#VhPUDZmGAqACJiDQ;G9c0DZmGAqACJiHn" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="90, 136, 905, 166" coords2="90, 136, 905, 166" shape="rect" alt="BUSCAR PRODUCTOS:Text Field" id="areadiagramVhPUDZmGAqACJiDQ_map_W9w0DZmGAqACJiGO" href="#VhPUDZmGAqACJiDQ;W9w0DZmGAqACJiGO" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="94, 199, 199, 259" coords2="94, 199, 199, 259" shape="rect" alt="Image:Image" id="areadiagramVhPUDZmGAqACJiDQ_map_O9w0DZmGAqACJiGR" href="#VhPUDZmGAqACJiDQ;O9w0DZmGAqACJiGR" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="211, 214, 688, 244" coords2="211, 214, 688, 244" shape="rect" alt="NOMBRE PRODUCTO:Text Field" id="areadiagramVhPUDZmGAqACJiDQ_map_u9w0DZmGAqACJiGU" href="#VhPUDZmGAqACJiDQ;u9w0DZmGAqACJiGU" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="707, 214, 807, 244" coords2="707, 214, 807, 244" shape="rect" alt="EDIT:Button" id="areadiagramVhPUDZmGAqACJiDQ_map_u9w0DZmGAqACJiGX" href="#VhPUDZmGAqACJiDQ;u9w0DZmGAqACJiGX" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="818, 214, 918, 244" coords2="818, 214, 918, 244" shape="rect" alt="ELIMINAR:Button" id="areadiagramVhPUDZmGAqACJiDQ_map_u9w0DZmGAqACJiGa" href="#VhPUDZmGAqACJiDQ;u9w0DZmGAqACJiGa" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="94, 266, 199, 326" coords2="94, 266, 199, 326" shape="rect" alt="Image:Image" id="areadiagramVhPUDZmGAqACJiDQ_map_e9w0DZmGAqACJiGd" href="#VhPUDZmGAqACJiDQ;e9w0DZmGAqACJiGd" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="211, 281, 688, 311" coords2="211, 281, 688, 311" shape="rect" alt="NOMBRE PRODUCTO:Text Field" id="areadiagramVhPUDZmGAqACJiDQ_map_.9w0DZmGAqACJiGg" href="#VhPUDZmGAqACJiDQ;.9w0DZmGAqACJiGg" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="707, 281, 807, 311" coords2="707, 281, 807, 311" shape="rect" alt="EDIT:Button" id="areadiagramVhPUDZmGAqACJiDQ_map_.9w0DZmGAqACJiGj" href="#VhPUDZmGAqACJiDQ;.9w0DZmGAqACJiGj" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="818, 281, 918, 311" coords2="818, 281, 918, 311" shape="rect" alt="ELIMINAR:Button" id="areadiagramVhPUDZmGAqACJiDQ_map_B9w0DZmGAqACJiGm" href="#VhPUDZmGAqACJiDQ;B9w0DZmGAqACJiGm" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="94, 333, 199, 393" coords2="94, 333, 199, 393" shape="rect" alt="Image:Image" id="areadiagramVhPUDZmGAqACJiDQ_map_h9w0DZmGAqACJiGp" href="#VhPUDZmGAqACJiDQ;h9w0DZmGAqACJiGp" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="211, 348, 688, 378" coords2="211, 348, 688, 378" shape="rect" alt="NOMBRE PRODUCTO:Text Field" id="areadiagramVhPUDZmGAqACJiDQ_map_h9w0DZmGAqACJiGs" href="#VhPUDZmGAqACJiDQ;h9w0DZmGAqACJiGs" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="707, 348, 807, 378" coords2="707, 348, 807, 378" shape="rect" alt="EDIT:Button" id="areadiagramVhPUDZmGAqACJiDQ_map_R9w0DZmGAqACJiGv" href="#VhPUDZmGAqACJiDQ;R9w0DZmGAqACJiGv" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="818, 348, 918, 378" coords2="818, 348, 918, 378" shape="rect" alt="ELIMINAR:Button" id="areadiagramVhPUDZmGAqACJiDQ_map_R9w0DZmGAqACJiGy" href="#VhPUDZmGAqACJiDQ;R9w0DZmGAqACJiGy" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="94, 406, 199, 466" coords2="94, 406, 199, 466" shape="rect" alt="Image:Image" id="areadiagramVhPUDZmGAqACJiDQ_map_x9w0DZmGAqACJiG1" href="#VhPUDZmGAqACJiDQ;x9w0DZmGAqACJiG1" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="211, 421, 688, 451" coords2="211, 421, 688, 451" shape="rect" alt="NOMBRE PRODUCTO:Text Field" id="areadiagramVhPUDZmGAqACJiDQ_map_J9w0DZmGAqACJiG4" href="#VhPUDZmGAqACJiDQ;J9w0DZmGAqACJiG4" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="707, 421, 807, 451" coords2="707, 421, 807, 451" shape="rect" alt="EDIT:Button" id="areadiagramVhPUDZmGAqACJiDQ_map_p9w0DZmGAqACJiG7" href="#VhPUDZmGAqACJiDQ;p9w0DZmGAqACJiG7" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="818, 421, 918, 451" coords2="818, 421, 918, 451" shape="rect" alt="ELIMINAR:Button" id="areadiagramVhPUDZmGAqACJiDQ_map_K9w0DZmGAqACJiGI" href="#VhPUDZmGAqACJiDQ;K9w0DZmGAqACJiGI" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="72, 122, 947, 509" coords2="72, 122, 947, 509" shape="rect" alt="Panel:Panel" id="areadiagramVhPUDZmGAqACJiDQ_map_W9w0DZmGAqACJiGM" href="#VhPUDZmGAqACJiDQ;W9w0DZmGAqACJiGM" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagramVhPUDZmGAqACJiDQ" coords="2, 2, 1026, 770" coords2="2, 2, 1026, 770" shape="rect" alt="Web Browser:Browser" id="areadiagramVhPUDZmGAqACJiDQ_map_XhPUDZmGAqACJiDR" href="#VhPUDZmGAqACJiDQ;XhPUDZmGAqACJiDR" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+	</p>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0" id="elementsVhPUDZmGAqACJiDQ">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Display Text</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Browser.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Browser.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Web Browser : Browser</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;XhPUDZmGAqACJiDR"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Panel.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Panel.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Panel : Panel</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;W9w0DZmGAqACJiGM"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">ELIMINAR : Button</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;K9w0DZmGAqACJiGI"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">EDIT : Button</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;p9w0DZmGAqACJiG7"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">NOMBRE PRODUCTO : Text Field</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;J9w0DZmGAqACJiG4"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;x9w0DZmGAqACJiG1"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">ELIMINAR : Button</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;R9w0DZmGAqACJiGy"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">EDIT : Button</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;R9w0DZmGAqACJiGv"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">NOMBRE PRODUCTO : Text Field</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;h9w0DZmGAqACJiGs"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;h9w0DZmGAqACJiGp"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">ELIMINAR : Button</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;B9w0DZmGAqACJiGm"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">EDIT : Button</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;.9w0DZmGAqACJiGj"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">NOMBRE PRODUCTO : Text Field</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;.9w0DZmGAqACJiGg"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;e9w0DZmGAqACJiGd"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">ELIMINAR : Button</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;u9w0DZmGAqACJiGa"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">EDIT : Button</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;u9w0DZmGAqACJiGX"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">NOMBRE PRODUCTO : Text Field</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;u9w0DZmGAqACJiGU"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Image.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Image.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Image : Image</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;O9w0DZmGAqACJiGR"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">BUSCAR PRODUCTOS : Text Field</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;W9w0DZmGAqACJiGO"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Panel.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Panel.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Panel : Panel</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;G9c0DZmGAqACJiHn"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">¿ESTAS SEGURO QUE QUIERES ELIMINAR EL PRODUCTO? : Text Field</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;7Zi0DZmGAqACJiHw"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">ACEPTAR : Button</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;ImB0DZmGAqACJiId"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Button.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Button.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">CANCELAR : Button</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;YTR0DZmGAqACJiI7"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Panel.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Panel.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Panel : Panel</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;4at0DZmGAqACJiJT"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/TextField.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/TextField.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">PRODUCTO ELIMINADO CON EXITO : Text Field</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;Gld0DZmGAqACJiJc"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Annotation.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Annotation.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Para eliminar productos, debe de <br>darse click en el boton "Eliminar" , luego<br>le saldra una advertencia<br> : Annotation</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;0HI0DZmGAqACJiHY"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Annotation.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Annotation.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Alerta para eliminar productos<br> : Annotation</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;efZ0DZmGAqACJiJK"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Annotation.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Annotation.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <span class="TableContent">Este anuncio durara 3 segundos y luego se desaparecera<br> : Annotation</span>				</span>
+<a name="VhPUDZmGAqACJiDQ;QR70DZmGAqACJiJn"></a>			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="width:370px; height:255px; position: fixed; _position: absolute; overflow: scroll; background-color: #F0F0F0; top: 100px; left: 100px; padding: 10px; display: none;" id="wireframeStatesDialog">
+		<span data-value="Web Wireframe - delect prod - opcion= &#x22;eliminar producto&#x22;" style="display: none;" id="pageTitleTextVhPUDZmGAqACJiDQ">
+		</span>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style=" left: 30; top: 30; width: 340; height: 225; position: absolute; z-index: 10; background: white; border: black 3px solid; padding: 15px 20px 10px 20px; text-align: center;">
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeVhPUDZmGAqACJiDQ', 'diagramVhPUDZmGAqACJiDQ', 'none', 'elementsVhPUDZmGAqACJiDQ', 'PageTitleText', 'pageTitleTextVhPUDZmGAqACJiDQ')"><img src="../images/delect_prod_opcion_eliminar_producto_preview.png" class="Image" style=" width: 266; height: 200; border: none !important;"/>
+</a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:okWireframeStatesDialog('selectShapeVhPUDZmGAqACJiDQ', 'diagramVhPUDZmGAqACJiDQ', 'none', 'elementsVhPUDZmGAqACJiDQ', 'PageTitleText', 'pageTitleTextVhPUDZmGAqACJiDQ')"><span style="color: black !important" class="TableContent ItemLink">opcion= "eliminar producto"</span></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		KN-STORE	</div>
+</body>
+</html>

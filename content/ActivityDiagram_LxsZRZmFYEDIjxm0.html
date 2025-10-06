@@ -1,0 +1,634 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Activity Diagram - CU003: Gestionar roles - Scenario</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		KN-STORE	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+<a href="UseCaseDiagram_CalpApmFYEDM8yQO.html" class="PageParentTitle">KN-Store : System</a><span class="PageParentTitle">&nbsp;.&nbsp;</span><a href="UseCaseDiagram_CalpApmFYEDM8yQO.html" class="PageParentTitle">CU003: Gestionar roles : Use Case</a>	</p>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Activity Diagram - CU003: Gestionar roles - Scenario		</span>
+<a onclick="javascript: showVpLink('KN-STORE.vpp://diagram/LxsZRZmFYEDIjxm0', 'CU003: Gestionar roles - Scenario\nKN-STORE.vpp://diagram/LxsZRZmFYEDIjxm0', 'CU003: Gestionar roles - Scenario', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|0.0|0.0|20.0|20.0|ActivityFinalNode_GZsZRZmFYEDIjxpV.html|ActivityFinalNode_GZsZRZmFYEDIjxpV.html|mZsZRZmFYEDIjxpW" id="optionmZsZRZmFYEDIjxpW">Unnamed Activity Final Node : Activity Final Node</option>
+<option value="shape|0.0|0.0|20.0|40.0|MergeNode_cZsZRZmFYEDIjxpL.html|MergeNode_cZsZRZmFYEDIjxpL.html|8ZsZRZmFYEDIjxpM" id="option8ZsZRZmFYEDIjxpM">Unnamed Merge Node : Merge Node</option>
+<option value="shape|0.0|0.0|167.0|40.0|ActivityAction_UZsZRZmFYEDIjxpF.html|ActivityAction_UZsZRZmFYEDIjxpF.html|0ZsZRZmFYEDIjxpG" id="option0ZsZRZmFYEDIjxpG">9.4. Mostrar mensaje de exito : Action</option>
+<option value="shape|0.0|0.0|173.0|40.0|ActivityAction_EZsZRZmFYEDIjxo_.html|ActivityAction_EZsZRZmFYEDIjxo_.html|EZsZRZmFYEDIjxpA" id="optionEZsZRZmFYEDIjxpA">9.3. SYSTEM Guarda cambios : Action</option>
+<option value="shape|0.0|0.0|211.0|40.0|ActivityAction_oZsZRZmFYEDIjxo5.html|ActivityAction_oZsZRZmFYEDIjxo5.html|YZsZRZmFYEDIjxo6" id="optionYZsZRZmFYEDIjxo6">9.2. ADMINISTRADOR edita permisos : Action</option>
+<option value="shape|0.0|0.0|208.0|40.0|ActivityAction_QZsZRZmFYEDIjxoz.html|ActivityAction_QZsZRZmFYEDIjxoz.html|wZsZRZmFYEDIjxo0" id="optionwZsZRZmFYEDIjxo0">9.1. ADMINISTRADOR Selecciona rol : Action</option>
+<option value="shape|0.0|0.0|20.0|40.0|DecisionNode_fpsZRZmFYEDIjxot.html|DecisionNode_fpsZRZmFYEDIjxot.html|_psZRZmFYEDIjxou" id="option_psZRZmFYEDIjxou">9. Modificar roles? : Decision Node</option>
+<option value="shape|0.0|0.0|20.0|40.0|MergeNode_XpsZRZmFYEDIjxok.html|MergeNode_XpsZRZmFYEDIjxok.html|3psZRZmFYEDIjxol" id="option3psZRZmFYEDIjxol">Unnamed Merge Node : Merge Node</option>
+<option value="shape|0.0|0.0|183.0|40.0|ActivityAction_bpsZRZmFYEDIjxoe.html|ActivityAction_bpsZRZmFYEDIjxoe.html|7psZRZmFYEDIjxof" id="option7psZRZmFYEDIjxof">8.3. SYSTEM Actulaliza cambios : Action</option>
+<option value="shape|0.0|0.0|230.0|40.0|ActivityAction_jpsZRZmFYEDIjxoY.html|ActivityAction_jpsZRZmFYEDIjxoY.html|TpsZRZmFYEDIjxoZ" id="optionTpsZRZmFYEDIjxoZ">8.2. ADMINISTRADOR Visualiza o elimina : Action</option>
+<option value="shape|0.0|0.0|197.0|40.0|ActivityAction_NpsZRZmFYEDIjxoS.html|ActivityAction_NpsZRZmFYEDIjxoS.html|tpsZRZmFYEDIjxoT" id="optiontpsZRZmFYEDIjxoT">8.1. SYSTEM Muestra lista de roles : Action</option>
+<option value="shape|0.0|0.0|20.0|40.0|DecisionNode_VpsZRZmFYEDIjxoM.html|DecisionNode_VpsZRZmFYEDIjxoM.html|VpsZRZmFYEDIjxoN" id="optionVpsZRZmFYEDIjxoN">8. Gestionar Roles? : Decision Node</option>
+<option value="shape|0.0|0.0|20.0|40.0|MergeNode_ppsZRZmFYEDIjxoD.html|MergeNode_ppsZRZmFYEDIjxoD.html|ZpsZRZmFYEDIjxoE" id="optionZpsZRZmFYEDIjxoE">Unnamed Merge Node : Merge Node</option>
+<option value="shape|0.0|0.0|167.0|40.0|ActivityAction__psZRZmFYEDIjxn9.html|ActivityAction__psZRZmFYEDIjxn9.html|BpsZRZmFYEDIjxn." id="optionBpsZRZmFYEDIjxn.">7.1. Mostrar mensaje de error : Action</option>
+<option value="shape|0.0|0.0|20.0|40.0|DecisionNode_2psZRZmFYEDIjxn3.html|DecisionNode_2psZRZmFYEDIjxn3.html|2psZRZmFYEDIjxn4" id="option2psZRZmFYEDIjxn4">7. Datos invalidos? : Decision Node</option>
+<option value="shape|0.0|0.0|20.0|40.0|MergeNode_qpsZRZmFYEDIjxnu.html|MergeNode_qpsZRZmFYEDIjxnu.html|6psZRZmFYEDIjxnv" id="option6psZRZmFYEDIjxnv">Unnamed Merge Node : Merge Node</option>
+<option value="shape|0.0|0.0|167.0|40.0|ActivityAction_cpsZRZmFYEDIjxnn.html|ActivityAction_cpsZRZmFYEDIjxnn.html|8psZRZmFYEDIjxno" id="option8psZRZmFYEDIjxno">6.2. mostrar mensaje de exito : Action</option>
+<option value="shape|0.0|0.0|156.0|40.0|ActivityAction_0psZRZmFYEDIjxnh.html|ActivityAction_0psZRZmFYEDIjxnh.html|MpsZRZmFYEDIjxni" id="optionMpsZRZmFYEDIjxni">6.1. SYSTEM Guarda rol y  : Action</option>
+<option value="shape|0.0|0.0|20.0|40.0|DecisionNode_4psZRZmFYEDIjxnb.html|DecisionNode_4psZRZmFYEDIjxnb.html|EpsZRZmFYEDIjxnc" id="optionEpsZRZmFYEDIjxnc">6. Datos validos? : Decision Node</option>
+<option value="shape|0.0|0.0|263.0|40.0|ActivityAction_vJsZRZmFYEDIjxnU.html|ActivityAction_vJsZRZmFYEDIjxnU.html|fJsZRZmFYEDIjxnV" id="optionfJsZRZmFYEDIjxnV">5. ADMINISTRADOR Ingresa nombre y permisos : Action</option>
+<option value="shape|0.0|0.0|360.0|40.0|ActivityAction_XJsZRZmFYEDIjxnO.html|ActivityAction_XJsZRZmFYEDIjxnO.html|3JsZRZmFYEDIjxnP" id="option3JsZRZmFYEDIjxnP">4. SYSTEM Muestra opcciones: crear rol, gestionar rol y modificar rol : Action</option>
+<option value="shape|0.0|0.0|260.0|40.0|ActivityAction_bJsZRZmFYEDIjxnI.html|ActivityAction_bJsZRZmFYEDIjxnI.html|7JsZRZmFYEDIjxnJ" id="option7JsZRZmFYEDIjxnJ">3. ADMINISTRADOR Accede al modulo de roles : Action</option>
+<option value="shape|0.0|0.0|82.0|40.0|ActivityAction_TJsZRZmFYEDIjxnC.html|ActivityAction_TJsZRZmFYEDIjxnC.html|zJsZRZmFYEDIjxnD" id="optionzJsZRZmFYEDIjxnD">2. Crear Rol : Action</option>
+<option value="shape|0.0|0.0|72.0|40.0|ActivityAction_eJsZRZmFYEDIjxm7.html|ActivityAction_eJsZRZmFYEDIjxm7.html|xJsZRZmFYEDIjxm8" id="optionxJsZRZmFYEDIjxm8">1. Inicio : Action</option>
+<option value="shape|0.0|0.0|22.0|20.0|InitialNode_iJsZRZmFYEDIjxm3.html|InitialNode_iJsZRZmFYEDIjxm3.html|6JsZRZmFYEDIjxm4" id="option6JsZRZmFYEDIjxm4">Unnamed Initial Node : Initial Node</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/CU003_Gestionar_roles_Scenario.png" usemap="#diagram_map" class="Image" width="364" height="59"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_tJsZRZmFYEDIjxnA_default" href="ControlFlow_VJsZRZmFYEDIjxm_.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=6JsZRZmFYEDIjxm4/Unnamed/InitialNode'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=xJsZRZmFYEDIjxm8/1. Inicio/Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_LJsZRZmFYEDIjxnG_default" href="ControlFlow_zJsZRZmFYEDIjxnF.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=xJsZRZmFYEDIjxm8/1. Inicio/Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=zJsZRZmFYEDIjxnD/2. Crear Rol/Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_HJsZRZmFYEDIjxnM_default" href="ControlFlow_7JsZRZmFYEDIjxnL.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=zJsZRZmFYEDIjxnD/2. Crear Rol/Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=7JsZRZmFYEDIjxnJ/3. ADMINISTRADOR Accede al modulo de roles/Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_PJsZRZmFYEDIjxnS_default" href="ControlFlow_3JsZRZmFYEDIjxnR.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=7JsZRZmFYEDIjxnJ/3. ADMINISTRADOR Accede al modulo de roles/Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=3JsZRZmFYEDIjxnP/4. SYSTEM Muestra opcciones: crear rol, gestionar rol y modificar rol/Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_ApsZRZmFYEDIjxnY_default" href="ControlFlow__JsZRZmFYEDIjxnX.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=3JsZRZmFYEDIjxnP/4. SYSTEM Muestra opcciones: crear rol, gestionar rol y modificar rol/Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=fJsZRZmFYEDIjxnV/5. ADMINISTRADOR Ingresa nombre y permisos/Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_UpsZRZmFYEDIjxnf_default" href="ControlFlow_kpsZRZmFYEDIjxne.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=fJsZRZmFYEDIjxnV/5. ADMINISTRADOR Ingresa nombre y permisos/Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=EpsZRZmFYEDIjxnc/6. Datos validos?/DecisionNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_spsZRZmFYEDIjxnl_default" href="ControlFlow_MpsZRZmFYEDIjxnk.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=EpsZRZmFYEDIjxnc/6. Datos validos?/DecisionNode'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=MpsZRZmFYEDIjxni/6.1. SYSTEM Guarda rol y /Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_CpsZRZmFYEDIjxnr_default" href="ControlFlow_CpsZRZmFYEDIjxnq.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=MpsZRZmFYEDIjxni/6.1. SYSTEM Guarda rol y /Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=8psZRZmFYEDIjxno/6.2. mostrar mensaje de exito/Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_GpsZRZmFYEDIjxny_default" href="ControlFlow_GpsZRZmFYEDIjxnx.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=EpsZRZmFYEDIjxnc/6. Datos validos?/DecisionNode'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=6psZRZmFYEDIjxnv/Unnamed/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_WpsZRZmFYEDIjxn1_default" href="ControlFlow_mpsZRZmFYEDIjxn0.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=8psZRZmFYEDIjxno/6.2. mostrar mensaje de exito/Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=6psZRZmFYEDIjxnv/Unnamed/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_epsZRZmFYEDIjxn7_default" href="ControlFlow_upsZRZmFYEDIjxn6.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=6psZRZmFYEDIjxnv/Unnamed/MergeNode'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=2psZRZmFYEDIjxn4/7. Datos invalidos?/DecisionNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_RpsZRZmFYEDIjxoB_default" href="ControlFlow_hpsZRZmFYEDIjxoA.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=2psZRZmFYEDIjxn4/7. Datos invalidos?/DecisionNode'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=BpsZRZmFYEDIjxn./7.1. Mostrar mensaje de error/Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_5psZRZmFYEDIjxoH_default" href="ControlFlow_5psZRZmFYEDIjxoG.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=2psZRZmFYEDIjxn4/7. Datos invalidos?/DecisionNode'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=ZpsZRZmFYEDIjxoE/Unnamed/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_lpsZRZmFYEDIjxoK_default" href="ControlFlow_FpsZRZmFYEDIjxoJ.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=BpsZRZmFYEDIjxn./7.1. Mostrar mensaje de error/Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=ZpsZRZmFYEDIjxoE/Unnamed/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_1psZRZmFYEDIjxoQ_default" href="ControlFlow_1psZRZmFYEDIjxoP.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=ZpsZRZmFYEDIjxoE/Unnamed/MergeNode'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=VpsZRZmFYEDIjxoN/8. Gestionar Roles?/DecisionNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_9psZRZmFYEDIjxoW_default" href="ControlFlow_dpsZRZmFYEDIjxoV.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=VpsZRZmFYEDIjxoN/8. Gestionar Roles?/DecisionNode'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=tpsZRZmFYEDIjxoT/8.1. SYSTEM Muestra lista de roles/Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_LpsZRZmFYEDIjxoc_default" href="ControlFlow_zpsZRZmFYEDIjxob.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=tpsZRZmFYEDIjxoT/8.1. SYSTEM Muestra lista de roles/Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=TpsZRZmFYEDIjxoZ/8.2. ADMINISTRADOR Visualiza o elimina/Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_HpsZRZmFYEDIjxoi_default" href="ControlFlow_7psZRZmFYEDIjxoh.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=TpsZRZmFYEDIjxoZ/8.2. ADMINISTRADOR Visualiza o elimina/Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=7psZRZmFYEDIjxof/8.3. SYSTEM Actulaliza cambios/Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_PpsZRZmFYEDIjxoo_default" href="ControlFlow_3psZRZmFYEDIjxon.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=VpsZRZmFYEDIjxoN/8. Gestionar Roles?/DecisionNode'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=3psZRZmFYEDIjxol/Unnamed/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_vpsZRZmFYEDIjxor_default" href="ControlFlow_vpsZRZmFYEDIjxoq.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=7psZRZmFYEDIjxof/8.3. SYSTEM Actulaliza cambios/Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=3psZRZmFYEDIjxol/Unnamed/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_gZsZRZmFYEDIjxox_default" href="ControlFlow_AZsZRZmFYEDIjxow.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=3psZRZmFYEDIjxol/Unnamed/MergeNode'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=_psZRZmFYEDIjxou/9. Modificar roles?/DecisionNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_IZsZRZmFYEDIjxo3_default" href="ControlFlow_wZsZRZmFYEDIjxo2.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=_psZRZmFYEDIjxou/9. Modificar roles?/DecisionNode'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=wZsZRZmFYEDIjxo0/9.1. ADMINISTRADOR Selecciona rol/Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_4ZsZRZmFYEDIjxo9_default" href="ControlFlow_YZsZRZmFYEDIjxo8.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=wZsZRZmFYEDIjxo0/9.1. ADMINISTRADOR Selecciona rol/Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=YZsZRZmFYEDIjxo6/9.2. ADMINISTRADOR edita permisos/Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_kZsZRZmFYEDIjxpD_default" href="ControlFlow_kZsZRZmFYEDIjxpC.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=YZsZRZmFYEDIjxo6/9.2. ADMINISTRADOR edita permisos/Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=EZsZRZmFYEDIjxpA/9.3. SYSTEM Guarda cambios/Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_sZsZRZmFYEDIjxpJ_default" href="ControlFlow_MZsZRZmFYEDIjxpI.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=EZsZRZmFYEDIjxpA/9.3. SYSTEM Guarda cambios/Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=0ZsZRZmFYEDIjxpG/9.4. Mostrar mensaje de exito/Action')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_iZsZRZmFYEDIjxpP_default" href="ControlFlow_CZsZRZmFYEDIjxpO.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=_psZRZmFYEDIjxou/9. Modificar roles?/DecisionNode'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=8ZsZRZmFYEDIjxpM/Unnamed/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_yZsZRZmFYEDIjxpS_default" href="ControlFlow_yZsZRZmFYEDIjxpR.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=0ZsZRZmFYEDIjxpG/9.4. Mostrar mensaje de exito/Action'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=8ZsZRZmFYEDIjxpM/Unnamed/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="" coords2="" shape="poly" alt=":Control Flow" id="areadiagram_map_WZsZRZmFYEDIjxpZ_default" href="ControlFlow_mZsZRZmFYEDIjxpY.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=8ZsZRZmFYEDIjxpM/Unnamed/MergeNode'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=mZsZRZmFYEDIjxpW/Unnamed/ActivityFinial')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 20, 32.0" coords2="0, 0, 20, 32.0" shape="rect" alt=":Activity Final Node" id="areadiagram_map_mZsZRZmFYEDIjxpW_default" href="ActivityFinalNode_GZsZRZmFYEDIjxpV.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 20, 20',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Scenario/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=WZsZRZmFYEDIjxpZ/Unnamed/ActivityControlFlow'),new Array()),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 20, 20')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 20, 52.0" coords2="0, 0, 20, 52.0" shape="rect" alt="6. Datos validos?:Decision Node" id="areadiagram_map_EpsZRZmFYEDIjxnc_default" href="DecisionNode_4psZRZmFYEDIjxnb.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 20, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Datos validos/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=UpsZRZmFYEDIjxnf/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=spsZRZmFYEDIjxnl/Unnamed/ActivityControlFlow','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=GpsZRZmFYEDIjxny/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 20, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 20, 52.0" coords2="0, 0, 20, 52.0" shape="rect" alt=":Merge Node" id="areadiagram_map_6psZRZmFYEDIjxnv_default" href="MergeNode_qpsZRZmFYEDIjxnu.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 20, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Datos validos/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=GpsZRZmFYEDIjxny/Unnamed/ActivityControlFlow','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=WpsZRZmFYEDIjxn1/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=epsZRZmFYEDIjxn7/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 20, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 20, 52.0" coords2="0, 0, 20, 52.0" shape="rect" alt="7. Datos invalidos?:Decision Node" id="areadiagram_map_2psZRZmFYEDIjxn4_default" href="DecisionNode_2psZRZmFYEDIjxn3.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 20, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Datos invalidos/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=epsZRZmFYEDIjxn7/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=RpsZRZmFYEDIjxoB/Unnamed/ActivityControlFlow','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=5psZRZmFYEDIjxoH/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 20, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 20, 52.0" coords2="0, 0, 20, 52.0" shape="rect" alt=":Merge Node" id="areadiagram_map_ZpsZRZmFYEDIjxoE_default" href="MergeNode_ppsZRZmFYEDIjxoD.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 20, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Datos invalidos/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=5psZRZmFYEDIjxoH/Unnamed/ActivityControlFlow','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=lpsZRZmFYEDIjxoK/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=1psZRZmFYEDIjxoQ/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 20, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 20, 52.0" coords2="0, 0, 20, 52.0" shape="rect" alt="8. Gestionar Roles?:Decision Node" id="areadiagram_map_VpsZRZmFYEDIjxoN_default" href="DecisionNode_VpsZRZmFYEDIjxoM.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 20, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Gestionar Roles/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=1psZRZmFYEDIjxoQ/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=9psZRZmFYEDIjxoW/Unnamed/ActivityControlFlow','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=PpsZRZmFYEDIjxoo/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 20, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 20, 52.0" coords2="0, 0, 20, 52.0" shape="rect" alt=":Merge Node" id="areadiagram_map_3psZRZmFYEDIjxol_default" href="MergeNode_XpsZRZmFYEDIjxok.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 20, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Gestionar Roles/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=PpsZRZmFYEDIjxoo/Unnamed/ActivityControlFlow','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=vpsZRZmFYEDIjxor/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=gZsZRZmFYEDIjxox/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 20, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 20, 52.0" coords2="0, 0, 20, 52.0" shape="rect" alt="9. Modificar roles?:Decision Node" id="areadiagram_map__psZRZmFYEDIjxou_default" href="DecisionNode_fpsZRZmFYEDIjxot.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 20, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=gZsZRZmFYEDIjxox/Unnamed/ActivityControlFlow','null/Unnamed/GenericModel'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=IZsZRZmFYEDIjxo3/Unnamed/ActivityControlFlow','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=iZsZRZmFYEDIjxpP/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 20, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 20, 52.0" coords2="0, 0, 20, 52.0" shape="rect" alt=":Merge Node" id="areadiagram_map_8ZsZRZmFYEDIjxpM_default" href="MergeNode_cZsZRZmFYEDIjxpL.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 20, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=iZsZRZmFYEDIjxpP/Unnamed/ActivityControlFlow','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=yZsZRZmFYEDIjxpS/Unnamed/ActivityControlFlow','null/Unnamed/GenericModel'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=WZsZRZmFYEDIjxpZ/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 20, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 22, 32.0" coords2="0, 0, 22, 32.0" shape="rect" alt=":Initial Node" id="areadiagram_map_6JsZRZmFYEDIjxm4_default" href="InitialNode_iJsZRZmFYEDIjxm3.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 22, 20',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Scenario/GenericModel'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=tJsZRZmFYEDIjxnA/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 22, 20')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 72, 52.0" coords2="0, 0, 72, 52.0" shape="rect" alt="1. Inicio:Action" id="areadiagram_map_xJsZRZmFYEDIjxm8_default" href="ActivityAction_eJsZRZmFYEDIjxm7.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 72, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Inicio/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=tJsZRZmFYEDIjxnA/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=LJsZRZmFYEDIjxnG/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 72, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 82, 52.0" coords2="0, 0, 82, 52.0" shape="rect" alt="2. Crear Rol:Action" id="areadiagram_map_zJsZRZmFYEDIjxnD_default" href="ActivityAction_TJsZRZmFYEDIjxnC.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 82, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Crear Rol/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=LJsZRZmFYEDIjxnG/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=HJsZRZmFYEDIjxnM/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 82, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 156, 52.0" coords2="0, 0, 156, 52.0" shape="rect" alt="6.1. SYSTEM Guarda rol y :Action" id="areadiagram_map_MpsZRZmFYEDIjxni_default" href="ActivityAction_0psZRZmFYEDIjxnh.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 156, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Guarda rol y /GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=spsZRZmFYEDIjxnl/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=CpsZRZmFYEDIjxnr/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 156, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 167, 52.0" coords2="0, 0, 167, 52.0" shape="rect" alt="6.2. mostrar mensaje de exito:Action" id="areadiagram_map_8psZRZmFYEDIjxno_default" href="ActivityAction_cpsZRZmFYEDIjxnn.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 167, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/mostrar mensaje de exito/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=CpsZRZmFYEDIjxnr/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=WpsZRZmFYEDIjxn1/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 167, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 167, 52.0" coords2="0, 0, 167, 52.0" shape="rect" alt="7.1. Mostrar mensaje de error:Action" id="areadiagram_map_BpsZRZmFYEDIjxn._default" href="ActivityAction__psZRZmFYEDIjxn9.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 167, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Mostrar mensaje de error/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=RpsZRZmFYEDIjxoB/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=lpsZRZmFYEDIjxoK/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 167, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 167, 52.0" coords2="0, 0, 167, 52.0" shape="rect" alt="9.4. Mostrar mensaje de exito:Action" id="areadiagram_map_0ZsZRZmFYEDIjxpG_default" href="ActivityAction_UZsZRZmFYEDIjxpF.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 167, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=sZsZRZmFYEDIjxpJ/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=yZsZRZmFYEDIjxpS/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 167, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 173, 52.0" coords2="0, 0, 173, 52.0" shape="rect" alt="9.3. SYSTEM Guarda cambios:Action" id="areadiagram_map_EZsZRZmFYEDIjxpA_default" href="ActivityAction_EZsZRZmFYEDIjxo_.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 173, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=kZsZRZmFYEDIjxpD/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=sZsZRZmFYEDIjxpJ/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 173, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 183, 52.0" coords2="0, 0, 183, 52.0" shape="rect" alt="8.3. SYSTEM Actulaliza cambios:Action" id="areadiagram_map_7psZRZmFYEDIjxof_default" href="ActivityAction_bpsZRZmFYEDIjxoe.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 183, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Actulaliza cambios/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=HpsZRZmFYEDIjxoi/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=vpsZRZmFYEDIjxor/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 183, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 197, 52.0" coords2="0, 0, 197, 52.0" shape="rect" alt="8.1. SYSTEM Muestra lista de roles:Action" id="areadiagram_map_tpsZRZmFYEDIjxoT_default" href="ActivityAction_NpsZRZmFYEDIjxoS.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 197, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Muestra lista de roles/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=9psZRZmFYEDIjxoW/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=LpsZRZmFYEDIjxoc/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 197, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 208, 52.0" coords2="0, 0, 208, 52.0" shape="rect" alt="9.1. ADMINISTRADOR Selecciona rol:Action" id="areadiagram_map_wZsZRZmFYEDIjxo0_default" href="ActivityAction_QZsZRZmFYEDIjxoz.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 208, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=IZsZRZmFYEDIjxo3/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=4ZsZRZmFYEDIjxo9/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 208, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 211, 52.0" coords2="0, 0, 211, 52.0" shape="rect" alt="9.2. ADMINISTRADOR edita permisos:Action" id="areadiagram_map_YZsZRZmFYEDIjxo6_default" href="ActivityAction_oZsZRZmFYEDIjxo5.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 211, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=4ZsZRZmFYEDIjxo9/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=kZsZRZmFYEDIjxpD/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 211, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 230, 52.0" coords2="0, 0, 230, 52.0" shape="rect" alt="8.2. ADMINISTRADOR Visualiza o elimina:Action" id="areadiagram_map_TpsZRZmFYEDIjxoZ_default" href="ActivityAction_jpsZRZmFYEDIjxoY.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 230, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/2R8iWpmFYEDIIz_c Visualiza o elimina/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=LpsZRZmFYEDIjxoc/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=HpsZRZmFYEDIjxoi/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 230, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 260, 52.0" coords2="0, 0, 260, 52.0" shape="rect" alt="3. ADMINISTRADOR Accede al modulo de roles:Action" id="areadiagram_map_7JsZRZmFYEDIjxnJ_default" href="ActivityAction_bJsZRZmFYEDIjxnI.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 260, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/2R8iWpmFYEDIIz_c Accede al modulo de roles/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=HJsZRZmFYEDIjxnM/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=PJsZRZmFYEDIjxnS/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 260, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 263, 52.0" coords2="0, 0, 263, 52.0" shape="rect" alt="5. ADMINISTRADOR Ingresa nombre y permisos:Action" id="areadiagram_map_fJsZRZmFYEDIjxnV_default" href="ActivityAction_vJsZRZmFYEDIjxnU.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 263, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/2R8iWpmFYEDIIz_c Ingresa nombre y permisos/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=ApsZRZmFYEDIjxnY/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=UpsZRZmFYEDIjxnf/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 263, 40')" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="0, 0, 360, 52.0" coords2="0, 0, 360, 52.0" shape="rect" alt="4. SYSTEM Muestra opcciones: crear rol, gestionar rol y modificar rol:Action" id="areadiagram_map_3JsZRZmFYEDIjxnP_default" href="ActivityAction_XJsZRZmFYEDIjxnO.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','0, 0, 360, 40',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('null/Muestra opcciones: crear rol, gestionar rol y modificar rol/GenericModel','ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=PJsZRZmFYEDIjxnS/Unnamed/ActivityControlFlow'),new Array('ActivityDiagram_LxsZRZmFYEDIjxm0.html?shapeid=ApsZRZmFYEDIjxnY/Unnamed/ActivityControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '0, 0, 360, 40')" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityFinial.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityFinial.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityFinalNode_GZsZRZmFYEDIjxpV.html" class="ItemLink">N/A : Activity Final Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/MergeNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/MergeNode.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="MergeNode_cZsZRZmFYEDIjxpL.html" class="ItemLink">N/A : Merge Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction_UZsZRZmFYEDIjxpF.html" class="ItemLink">9.4. Mostrar mensaje de exito : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction_EZsZRZmFYEDIjxo_.html" class="ItemLink">9.3. SYSTEM Guarda cambios : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction_oZsZRZmFYEDIjxo5.html" class="ItemLink">9.2. ADMINISTRADOR edita permisos : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction_QZsZRZmFYEDIjxoz.html" class="ItemLink">9.1. ADMINISTRADOR Selecciona rol : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DecisionNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DecisionNode.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="DecisionNode_fpsZRZmFYEDIjxot.html" class="ItemLink">9. Modificar roles? : Decision Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/MergeNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/MergeNode.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="MergeNode_XpsZRZmFYEDIjxok.html" class="ItemLink">N/A : Merge Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction_bpsZRZmFYEDIjxoe.html" class="ItemLink">8.3. SYSTEM Actulaliza cambios : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction_jpsZRZmFYEDIjxoY.html" class="ItemLink">8.2. ADMINISTRADOR Visualiza o elimina : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction_NpsZRZmFYEDIjxoS.html" class="ItemLink">8.1. SYSTEM Muestra lista de roles : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DecisionNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DecisionNode.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="DecisionNode_VpsZRZmFYEDIjxoM.html" class="ItemLink">8. Gestionar Roles? : Decision Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/MergeNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/MergeNode.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="MergeNode_ppsZRZmFYEDIjxoD.html" class="ItemLink">N/A : Merge Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction__psZRZmFYEDIjxn9.html" class="ItemLink">7.1. Mostrar mensaje de error : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DecisionNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DecisionNode.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="DecisionNode_2psZRZmFYEDIjxn3.html" class="ItemLink">7. Datos invalidos? : Decision Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/MergeNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/MergeNode.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="MergeNode_qpsZRZmFYEDIjxnu.html" class="ItemLink">N/A : Merge Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction_cpsZRZmFYEDIjxnn.html" class="ItemLink">6.2. mostrar mensaje de exito : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction_0psZRZmFYEDIjxnh.html" class="ItemLink">6.1. SYSTEM Guarda rol y  : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DecisionNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DecisionNode.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="DecisionNode_4psZRZmFYEDIjxnb.html" class="ItemLink">6. Datos validos? : Decision Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction_vJsZRZmFYEDIjxnU.html" class="ItemLink">5. ADMINISTRADOR Ingresa nombre y permisos : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction_XJsZRZmFYEDIjxnO.html" class="ItemLink">4. SYSTEM Muestra opcciones: crear rol, gestionar rol y modificar rol : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction_bJsZRZmFYEDIjxnI.html" class="ItemLink">3. ADMINISTRADOR Accede al modulo de roles : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction_TJsZRZmFYEDIjxnC.html" class="ItemLink">2. Crear Rol : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Action.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Action.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="ActivityAction_eJsZRZmFYEDIjxm7.html" class="ItemLink">1. Inicio : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/InitialNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/InitialNode.png'); background-repeat: no-repeat; background-size: contain;">
+					</div>
+					&nbsp; <a href="InitialNode_iJsZRZmFYEDIjxm3.html" class="ItemLink">N/A : Initial Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		KN-STORE	</div>
+</body>
+</html>
